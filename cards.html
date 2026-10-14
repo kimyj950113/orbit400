@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>CARDS · ORβIT 400</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Nanum+Gothic+Coding:wght@400;700&family=Black+Han+Sans&family=Noto+Sans+JP:wght@900&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/assets/base.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+/* 인스타 정방형 1080×1080 카드 9장. ?n=번호 로 한 장만 보여서 캡처 */
+html,body{background:#9aa0b4}
+body::after{display:none}
+.deck{display:grid;gap:40px;justify-content:center;padding:40px 0}
+.single .deck{padding:0;gap:0}
+.single html,.single body{background:var(--paper)}
+.card{width:1080px;height:1080px;position:relative;overflow:hidden;background:var(--paper);isolation:isolate}
+.card::after{content:"";position:absolute;inset:0;background-image:var(--grain);opacity:.26;mix-blend-mode:multiply;pointer-events:none;z-index:50}
+.dots::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(var(--ink) 2px,transparent 2.3px);background-size:18px 18px;opacity:.12;
+  -webkit-mask-image:radial-gradient(70% 70% at 100% 0,#000,transparent 70%);mask-image:radial-gradient(70% 70% at 100% 0,#000,transparent 70%)}
+.pg{position:absolute;top:44px;right:52px;font-family:var(--f-dot);font-size:24px;letter-spacing:.1em;z-index:5}
+.brand{position:absolute;left:56px;bottom:40px;font-family:var(--f-disp);font-size:28px;z-index:5}
+.brand b{color:var(--red)}
+.url{position:absolute;right:56px;bottom:44px;font-family:var(--f-dot);font-size:22px;letter-spacing:.06em;z-index:5}
+.chip{display:inline-block;border:4px solid var(--ink);border-radius:999px;padding:6px 22px;font-family:var(--f-dot);font-size:30px;letter-spacing:.06em;background:var(--paper)}
+.chip.y{background:var(--yellow)}
+.chip.ko{font-family:var(--f-ko);letter-spacing:.02em}
+.ttl{font-family:var(--f-disp);font-size:120px;line-height:.85;letter-spacing:-.03em;margin:0}
+.ttl-jp{font-family:var(--f-disp);color:var(--red);writing-mode:vertical-rl;font-size:34px;letter-spacing:.2em}
+.tape{position:absolute;left:-60px;right:-60px;white-space:nowrap;overflow:hidden;border-block:4px solid var(--ink);font-family:var(--f-disp);font-size:34px;padding:12px 0;z-index:4}
+.tape.a{background:var(--yellow);transform:rotate(-3deg);z-index:6}
+.tape.b{background:var(--ink);color:var(--paper);transform:rotate(2deg)}
+.disc{position:absolute;border-radius:50%;border:5px solid var(--ink);
+  background:radial-gradient(circle,var(--paper) 0 7%,var(--ink) 7.4% 8.6%,transparent 9%),repeating-radial-gradient(circle,transparent 0 9px,rgba(20,19,28,.12) 9px 10.5px),
+  conic-gradient(var(--t1) 0 25%,var(--t2) 0 50%,var(--t3) 0 75%,var(--t4) 0);box-shadow:16px 16px 0 var(--ink)}
+.disc::after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 30deg,transparent,rgba(255,255,255,.55) 8%,transparent 16%,transparent 50%,rgba(255,255,255,.4) 58%,transparent 66%)}
+.disc span{position:absolute;transform:translate(-50%,-50%);font-family:var(--f-disp);color:var(--paper);-webkit-text-stroke:4px var(--ink);paint-order:stroke fill}
+.stk{position:absolute;display:grid;place-items:center;text-align:center;border:5px solid var(--ink);border-radius:50%;font-family:var(--f-disp);line-height:1;box-shadow:7px 7px 0 var(--ink);z-index:7}
+
+/* 1 COVER */
+.c1 .top{position:absolute;left:64px;top:70px;display:flex;gap:14px}
+.c1 .mega{position:absolute;left:58px;top:175px;font-family:var(--f-disp);font-size:176px;line-height:.8;letter-spacing:-.04em;text-shadow:12px 8px 0 var(--red),-8px -6px 0 var(--blue);z-index:3}
+.c1 .num{position:absolute;left:60px;top:335px;font-family:var(--f-disp);font-size:230px;line-height:.85;color:transparent;-webkit-text-stroke:6px var(--ink);z-index:3}
+.c1 .num i{font-style:normal;color:var(--yellow)}
+.c1 .genre{position:absolute;left:66px;top:620px;font-family:var(--f-disp);font-size:30px;letter-spacing:.06em;line-height:1.3}
+.c1 .genre span{color:var(--red)}
+.c1 .disc{width:400px;height:400px;right:-160px;top:300px;transform:rotate(-12deg)}
+.c1 .disc span{font-size:74px}
+.c1 .st1{width:176px;height:176px;right:236px;top:600px;background:var(--red);color:var(--paper);transform:rotate(-12deg);font-size:24px;white-space:nowrap}
+.c1 .st2{width:196px;height:196px;right:50px;top:620px;background:var(--yellow);transform:rotate(10deg);font-size:33px;white-space:nowrap}
+.c1 .st2 small{display:block;font-family:var(--f-dot);font-size:18px;margin-top:10px;letter-spacing:.1em}
+.c1 .tape.a{top:800px}.c1 .tape.b{top:880px}
+
+/* 2 LINE UP */
+.hd{position:absolute;left:64px;top:60px;display:flex;align-items:flex-end;gap:16px}
+.c2 .grid{position:absolute;left:64px;right:64px;top:300px;bottom:110px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.jk{position:relative;border:5px solid var(--ink);box-shadow:10px 10px 0 var(--ink);overflow:hidden;background:var(--ink)}
+.jk canvas{position:absolute;inset:0;width:100%;height:100%}
+.jk .k{position:absolute;left:16px;top:0;font-family:var(--f-disp);font-size:110px;line-height:1.05;color:var(--paper);-webkit-text-stroke:6px var(--ink);paint-order:stroke fill;text-shadow:8px 8px 0 var(--ink)}
+.jk .bar{position:absolute;left:0;right:0;bottom:0;background:var(--paper);border-top:5px solid var(--ink);display:flex;align-items:center;gap:14px;padding:14px 18px}
+.jk .no{white-space:nowrap;font-family:var(--f-dot);font-size:18px;background:var(--c);color:var(--paper);padding:3px 10px;border:3px solid var(--ink)}
+.jk .nm{font-family:var(--f-ko);font-size:28px;line-height:1;flex:1;white-space:nowrap}
+.jk .tm{font-family:var(--f-dot);font-size:24px}
+
+/* 3-6 TEAM */
+.team .art{position:absolute;left:0;right:0;top:0;height:400px;border-bottom:6px solid var(--ink);background:var(--ink)}
+.team .art canvas{position:absolute;inset:0;width:100%;height:100%}
+.team .art .k{position:absolute;left:44px;top:10px;font-family:var(--f-disp);font-size:250px;line-height:1.05;color:var(--paper);-webkit-text-stroke:9px var(--ink);paint-order:stroke fill;text-shadow:12px 12px 0 var(--ink)}
+.team .art .kata{position:absolute;right:52px;top:100px;writing-mode:vertical-rl;font-family:var(--f-disp);font-size:22px;letter-spacing:.08em;background:var(--paper);border:4px solid var(--ink);padding:16px 8px;white-space:nowrap}
+.team .pg{color:var(--paper);background:var(--ink);padding:4px 12px;border-radius:999px}
+.team .info{position:absolute;left:56px;right:56px;top:426px;display:grid;gap:16px}
+.team .row1{display:flex;align-items:center;gap:16px}
+.team .no{font-family:var(--f-dot);font-size:26px;background:var(--c);color:var(--paper);padding:4px 14px;border:4px solid var(--ink)}
+.team .tm{font-family:var(--f-dot);font-size:28px;margin-left:auto;border:4px solid var(--ink);border-radius:999px;padding:4px 16px;background:#fff}
+.team h2{font-family:var(--f-ko);font-weight:400;font-size:84px;line-height:1;margin:0}
+.mem{display:flex;flex-wrap:wrap;gap:10px}
+.mem span{border:3px solid var(--ink);border-radius:999px;padding:5px 14px 5px 8px;background:#fff;font-weight:700;font-size:22px;display:inline-flex;align-items:center;gap:8px}
+.mem b{font-family:var(--f-dot);font-weight:400;font-size:16px;background:var(--c);color:var(--paper);border-radius:999px;padding:2px 9px}
+.sl{position:absolute;left:56px;right:56px;top:720px;display:grid;grid-template-columns:1fr 1fr;column-gap:36px;row-gap:2px;list-style:none;margin:0;padding:0;border-top:4px solid var(--ink);padding-top:8px}
+.sl li{display:grid;grid-template-columns:46px minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:11px 0;border-bottom:2px dashed color-mix(in oklab,var(--ink) 30%,transparent)}
+.sl .n{font-family:var(--f-dot);color:var(--c);font-size:26px}
+.sl .t{font-weight:700;font-size:25px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl .t small{font-weight:400;color:var(--ink-2);font-size:18px;margin-left:6px}
+.sl .d{font-family:var(--f-dot);color:var(--ink-2);font-size:20px}
+.team .brand{bottom:30px}.team .url{bottom:34px}
+
+/* 7 TIME */
+.c7 .list{position:absolute;left:64px;right:64px;top:300px;display:grid;gap:14px}
+.c7 .it{display:grid;grid-template-columns:220px 1fr;align-items:center;border:5px solid var(--ink);background:#fff;box-shadow:8px 8px 0 var(--c);min-height:90px}
+.c7 .it time{font-family:var(--f-dot);font-size:38px;padding:0 22px;border-right:5px solid var(--ink);height:100%;display:flex;align-items:center;background:var(--c);color:var(--fg,var(--paper))}
+.c7 .it div{padding:0 26px;display:flex;align-items:center;gap:18px}
+.c7 .it .k{font-family:var(--f-disp);font-size:52px;color:var(--c)}
+.c7 .it b{font-family:var(--f-ko);font-weight:400;font-size:42px}
+.c7 .it small{font-family:var(--f-dot);font-size:20px;color:var(--ink-2);margin-left:auto}
+
+/* 8 TICKET */
+.c8 .stub{position:absolute;left:64px;top:230px;width:580px;height:540px;background:var(--red);color:var(--paper);border:5px solid var(--ink);box-shadow:14px 14px 0 var(--ink);overflow:hidden}
+.c8 .stub::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.22) 2px,transparent 2.3px);background-size:18px 18px}
+.c8 .stub>*{position:relative}
+.c8 .stub .in{padding:34px 34px;display:grid;gap:18px}
+.c8 .stub .dot{font-size:22px;letter-spacing:.18em}
+.c8 .price{white-space:nowrap;font-family:var(--f-disp);font-size:124px;line-height:.85;color:var(--yellow);-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:9px 9px 0 var(--ink)}
+.c8 .price small{font-size:36px;color:var(--paper);-webkit-text-stroke:0;text-shadow:none;margin-left:8px}
+.c8 .stub .info{font-family:var(--f-ko);font-size:34px;line-height:1.35}
+.c8 .steps{position:absolute;left:64px;top:810px;display:grid;gap:12px;list-style:none;margin:0;padding:0}
+.c8 .steps li{display:flex;align-items:center;gap:16px;font-weight:700;font-size:28px}
+.c8 .steps b{width:52px;height:52px;border-radius:50%;border:4px solid var(--ink);display:grid;place-items:center;font-family:var(--f-disp);font-size:26px;background:var(--yellow)}
+.c8 .steps li:nth-child(2) b{background:var(--t2);color:var(--paper)}
+.c8 .steps li:nth-child(3) b{background:var(--t4);color:var(--paper)}
+.c8 .qr{position:absolute;right:64px;top:230px;width:320px;background:var(--ink);border:5px solid var(--ink);box-shadow:12px 12px 0 var(--blue);padding:22px;display:grid;gap:14px;justify-items:center;color:var(--paper);transform:rotate(3deg)}
+.c8 .qr .code{background:#fff;padding:14px;width:260px;height:260px}
+.c8 .qr .code svg{width:100%;height:100%;display:block}
+.c8 .qr b{font-family:var(--f-disp);font-weight:400;font-size:40px;color:var(--yellow)}
+.c8 .qr span{font-family:var(--f-dot);font-size:20px}
+.c8 .note{position:absolute;right:64px;top:720px;width:330px;font-size:24px;font-weight:700;line-height:1.45;text-align:right}
+.c8 .note em{font-style:normal;background:var(--yellow);padding:0 6px}
+
+/* 9 ACCESS */
+.c9 .orbit{position:absolute;right:-140px;top:120px;width:640px;height:640px}
+.c9 .orbit .ring{position:absolute;inset:0;border-radius:50%;border:4px dashed var(--ink);opacity:.5}
+.c9 .orbit .ring.r2{inset:110px;opacity:.35}
+.c9 .orbit .pin{position:absolute;left:50%;top:50%;width:220px;height:220px;transform:translate(-50%,-50%);border-radius:50%;background:var(--yellow);border:6px solid var(--ink);box-shadow:12px 12px 0 var(--ink);display:grid;place-items:center;text-align:center;font-family:var(--f-disp);font-size:34px;line-height:1.05}
+.c9 .orbit .sat{position:absolute;width:64px;height:64px;border-radius:50%;border:4px solid var(--ink);display:grid;place-items:center;font-family:var(--f-disp);font-size:30px;color:var(--paper)}
+.c9 .place{position:absolute;left:64px;top:230px;font-family:var(--f-ko);font-size:96px;line-height:1}
+.c9 .place small{display:block;font-family:var(--f-disp);font-size:26px;letter-spacing:.2em;color:var(--red);margin-top:16px}
+.c9 .addr{position:absolute;left:64px;top:520px;width:600px;border:5px solid var(--ink);background:#fff;box-shadow:10px 10px 0 var(--ink);padding:24px 28px;display:grid;gap:8px}
+.c9 .addr b{font-size:34px;line-height:1.3}
+.c9 .addr span{font-size:24px;color:var(--ink-2);font-weight:600}
+.c9 .facts{position:absolute;left:64px;top:780px;display:grid;gap:14px;list-style:none;margin:0;padding:0}
+.c9 .facts li{font-size:28px;font-weight:700;display:flex;gap:14px;align-items:baseline}
+.c9 .facts li::before{content:"★";color:var(--red)}
+.c9 .station{display:inline-block;background:#36a33b;color:#fff;border-radius:999px;padding:2px 14px;font-size:24px;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="deck" id="deck"></div>
+<script type="module">
+import { EVENT, TEAMS, PART, esc, won } from '/assets/data.js';
+import { mountArt } from '/assets/art.js';
+const N = 9;
+const pg = n => `<div class="pg">${String(n).padStart(2, '0')} / ${String(N).padStart(2, '0')}</div>`;
+const foot = `<div class="brand">ORβIT<b>★</b>400</div><div class="url">orbit400.vercel.app</div>`;
+const tapeA = ('ORβIT 400 ★ ライブ ★ 2026.12.20 SUN ★ 홍대 우주정거장 ★ ').repeat(4);
+const tapeB = (TEAMS.map(t => `${t.jp} ★ ${t.ko}`).join(' ★ ') + ' ★ ').repeat(2);
+const discK = (r, fs) => TEAMS.map((t, i) => { const a = (i * 90 + 45) * Math.PI / 180; return `<span style="left:calc(50% + ${(Math.sin(a) * r).toFixed(0)}px);top:calc(50% - ${(Math.cos(a) * r).toFixed(0)}px);font-size:${fs}px;transform:translate(-50%,-50%) rotate(12deg)">${t.k}</span>`; }).join('');
+let no = 0; const startNo = TEAMS.map(t => { const s = no; no += t.songs.length; return s; });
+const AB = { V: 'VO', G: 'GT', B: 'BA', K: 'KEY', D: 'DR' };
+
+const cards = [];
+cards.push(`<section class="card c1 dots">${pg(1)}
+  <div class="top"><span class="chip y">2026.12.20 SUN</span><span class="chip ko">홍대 우주정거장</span></div>
+  <div class="mega">ORβIT</div><div class="num">400<i>!</i></div>
+  <div class="genre">J-POP &amp; ANISONG<br><span>COPY BAND LIVE</span></div>
+  <div class="disc">${discK(118, 64)}</div>
+  <div class="stk st1">4 BANDS<br>31 SONGS</div>
+  <div class="stk st2"><div>₩7,000<small>ADMISSION</small></div></div>
+  <div class="tape a">${tapeA}</div><div class="tape b">${tapeB}</div>
+  ${foot}</section>`);
+
+cards.push(`<section class="card c2 dots">${pg(2)}
+  <div class="hd"><h2 class="ttl">LINE<br>UP</h2><span class="ttl-jp">出演</span></div>
+  <div class="grid">${TEAMS.map((t, i) => `<div class="jk" style="--c:${t.color}"><canvas data-art="${t.art}"></canvas><span class="k">${t.k}</span>
+    <div class="bar"><span class="no">TEAM 0${i + 1}</span><span class="nm">${esc(t.ko)}</span><span class="tm">${t.start}</span></div></div>`).join('')}</div>
+  ${foot}</section>`);
+
+TEAMS.forEach((t, i) => {
+  cards.push(`<section class="card team" style="--c:${t.color}">${pg(3 + i)}
+    <div class="art"><canvas data-art="${t.art}"></canvas><span class="k">${t.k}</span><span class="kata">${esc(t.jp)}</span></div>
+    <div class="info">
+      <div class="row1"><span class="no">TEAM 0${i + 1}</span><span class="tm">${t.start} – ${t.end}</span></div>
+      <h2>${esc(t.ko)}</h2>
+      <div class="mem">${Object.entries(t.parts).map(([p, ns]) => `<span><b>${AB[p]}</b>${ns.map(esc).join(' · ')}</span>`).join('')}</div>
+    </div>
+    <ol class="sl">${t.songs.map(([s, a, d], j) => `<li><span class="n">${String(startNo[i] + j + 1).padStart(2, '0')}</span><span class="t">${esc(s)}${a ? `<small>${esc(a)}</small>` : ''}</span><span class="d">${d}</span></li>`).join('')}</ol>
+    ${foot}</section>`);
+});
+
+const rows = [{ s: '16:00', k: '', ko: '관객 입장', sub: 'OPEN', c: 'var(--yellow)', fg: 'var(--ink)' },
+  ...TEAMS.map(t => ({ s: t.start, k: t.k, ko: t.ko, sub: `${t.songs.length} SONGS`, c: t.color })),
+  { s: '19:30', k: '', ko: '공연 끝 · 다음에 또 만나요', sub: 'END', c: 'var(--ink)' }];
+cards.push(`<section class="card c7 dots">${pg(7)}
+  <div class="hd"><h2 class="ttl">TIME<br>TABLE</h2><span class="ttl-jp">時間割</span></div>
+  <div class="list">${rows.map(r => `<div class="it" style="--c:${r.c};${r.fg ? `--fg:${r.fg}` : ''}"><time>${r.s}</time><div>${r.k ? `<span class="k">${r.k}</span>` : ''}<b>${esc(r.ko)}</b><small>${r.sub}</small></div></div>`).join('')}</div>
+  ${foot}</section>`);
+
+cards.push(`<section class="card c8 dots">${pg(8)}
+  <div class="hd"><h2 class="ttl">TICKET</h2><span class="ttl-jp">入場券</span></div>
+  <div class="stub"><div class="in"><span class="dot">ADMISSION · ORβIT 400</span><div class="price">7,000<small>원</small></div>
+    <div class="info">1인 · 스탠딩<br>2026.12.20 SUN<br>OPEN 16:00 · START 17:00</div></div></div>
+  <div class="qr"><div class="code" id="qr"></div><b>예매하기</b><span>orbit400.vercel.app</span></div>
+  <div class="note">공연 당일엔 사이트에서<br><em>내 티켓 찾기</em>로 QR을<br>열어주세요</div>
+  <ol class="steps"><li><b>1</b>사이트에서 신청 후 계좌 입금</li><li><b>2</b>입금 확인되면 입장 QR 발급</li><li><b>3</b>당일 입구에서 QR 보여주기</li></ol>
+  ${foot}</section>`);
+
+cards.push(`<section class="card c9 dots">${pg(9)}
+  <div class="hd"><h2 class="ttl">ACCESS</h2><span class="ttl-jp">会場</span></div>
+  <div class="orbit"><div class="ring"></div><div class="ring r2"></div>
+    ${TEAMS.map((t, i) => { const a = i * 90 + 30; const r = 320; return `<div class="sat" style="background:${t.color};left:calc(50% + ${(Math.cos(a * Math.PI / 180) * r).toFixed(0)}px - 32px);top:calc(50% + ${(Math.sin(a * Math.PI / 180) * r).toFixed(0)}px - 32px)">${t.k}</div>`; }).join('')}
+    <div class="pin">홍대<br>우주<br>정거장</div></div>
+  <div class="place">홍대<br>우주정거장<small>HONGDAE SPACE STATION</small></div>
+  <div class="addr"><b>서울 마포구 와우산로29길 16<br>지하 1층</b><span><span class="station">2</span>홍대입구역에서 걸어서 7~8분</span></div>
+  <ul class="facts"><li>건물 주차 불가 · 대중교통 이용</li><li>스탠딩 공연 (약 100명)</li><li>공연 중 음료 · 주류 구매 가능</li></ul>
+  ${foot}</section>`);
+
+const only = +new URLSearchParams(location.search).get('n');
+if (only) document.documentElement.classList.add('single');
+document.getElementById('deck').innerHTML = only ? cards[only - 1] : cards.join('');
+document.querySelectorAll('canvas[data-art]').forEach(c => mountArt(c, c.dataset.art));
+const box = document.getElementById('qr');
+if (box) { const q = qrcode(0, 'M'); q.addData('https://orbit400.vercel.app/#ticket'); q.make(); box.innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); }
+</script>
+</body>
+</html>
