@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>내 티켓 · ORβIT 400</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#eef0f6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Nanum+Gothic+Coding:wght@400;700&family=Black+Han+Sans&family=Noto+Sans+JP:wght@900&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/assets/base.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+body{min-height:100dvh}
+.top{display:flex;align-items:center;justify-content:space-between;padding-block:calc(16px + env(safe-area-inset-top,0px)) 0}
+.logo{font-family:var(--f-disp);font-size:20px;text-decoration:none}
+.logo b{color:var(--red)}
+main{padding-block:28px 60px;display:grid;gap:22px;justify-items:center}
+.ticket{width:100%;max-width:440px;background:#fff;border:3px solid var(--ink);box-shadow:10px 10px 0 var(--c,var(--ink));position:relative}
+.t-head{background:var(--c,var(--ink));color:var(--paper);padding:20px 22px 18px;border-bottom:3px dashed var(--ink);position:relative;overflow:hidden}
+.t-head::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.22) 1.4px,transparent 1.6px);background-size:12px 12px}
+.t-head>*{position:relative}
+.t-head .dot{font-size:12px;letter-spacing:.2em}
+.t-head h1{font-family:var(--f-disp);font-size:46px;line-height:.9;margin:8px 0 6px;letter-spacing:-.02em}
+.t-head p{margin:0;font-family:var(--f-dot);font-size:14px}
+.ticket::before,.ticket::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;background:var(--paper);border:3px solid var(--ink);top:var(--cut,150px)}
+.ticket::before{left:-16px}.ticket::after{right:-16px}
+.t-body{padding:22px;display:grid;gap:16px}
+.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.kv div{border:2px solid var(--ink);border-radius:12px;padding:10px 12px}
+.kv small{display:block;font-family:var(--f-dot);font-size:11px;letter-spacing:.18em;color:var(--ink-2)}
+.kv b{font-size:19px}
+.status{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
+.status i{width:14px;height:14px;border-radius:50%;background:var(--s);box-shadow:0 0 0 4px color-mix(in oklab,var(--s) 25%,transparent)}
+.qr{display:grid;justify-items:center;gap:8px;position:relative}
+.qr canvas,.qr img{width:min(100%,280px);height:auto;image-rendering:pixelated;border:3px solid var(--ink);padding:10px;background:#fff}
+.qr .code{font-family:var(--f-dot);font-size:13px;color:var(--ink-2);letter-spacing:.1em}
+.stamp{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%) rotate(-14deg);border:5px solid var(--ok);color:var(--ok);font-family:var(--f-disp);font-size:34px;padding:6px 18px;border-radius:10px;background:color-mix(in oklab,#fff 80%,transparent);white-space:nowrap}
+.pay{border:2.5px solid var(--ink);border-radius:14px;padding:14px 16px;background:var(--yellow);display:grid;gap:6px}
+.pay .num{font-family:var(--f-dot);font-size:20px;user-select:all}
+.pay .btn{justify-self:start;padding:8px 14px;font-size:13px;box-shadow:3px 3px 0 var(--ink)}
+.hint{font-size:13px;color:var(--ink-2);text-align:center;max-width:440px;margin:0}
+.others{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:440px}
+.others a{font-size:13px;padding:6px 12px;border:2px solid var(--ink);border-radius:999px;text-decoration:none;background:#fff}
+.others a[aria-current]{background:var(--ink);color:var(--paper)}
+.msg{max-width:440px;text-align:center;display:grid;gap:14px;justify-items:center}
+.msg h1{font-family:var(--f-ko);font-size:30px;margin:0}
+</style>
+</head>
+<body>
+<div class="wrap top"><a class="logo" href="/">ORβIT<b>★</b>400</a><span class="dot">MY TICKET</span></div>
+<main class="wrap" id="app"><p class="dot">불러오는 중…</p></main>
+<div class="toast" id="toast" role="status"></div>
+
+<script type="module">
+import { EVENT, esc, won } from '/assets/data.js';
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const token = (location.pathname.match(/\/t\/([A-Za-z0-9]+)/) || [])[1] || new URLSearchParams(location.search).get('t') || '';
+const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); };
+
+const KEY = 'live1220.tickets';
+let mine = []; try { mine = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch {}
+
+const fmt = ms => new Date(ms).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+const S = {
+  pending: ['입금 확인 중', 'var(--warn)', 'var(--ink)'],
+  paid: ['입장 가능', 'var(--ok)', 'var(--red)'],
+  checked: ['입장 완료', 'var(--ok)', 'var(--t4)'],
+  canceled: ['취소된 티켓', 'var(--bad)', 'var(--ink-2)'],
+};
+
+function othersHtml() {
+  if (mine.length < 2) return '';
+  return `<div class="others">${mine.map((m, i) => `<a href="/t/${esc(m.token)}" ${m.token === token ? 'aria-current="page"' : ''}>${esc(m.name)} · ${m.qty}명</a>`).join('')}</div>`;
+}
+
+function render(o) {
+  const [label, sc, c] = S[o.status] || S.pending;
+  const qrHtml = (o.status === 'paid' || o.status === 'checked') ? `<div class="qr"><div id="qr"></div><span class="code">${esc(o.token.slice(0, 4))}-${esc(o.token.slice(-4))}</span>${o.status === 'checked' ? `<div class="stamp">入場済 ${fmt(o.checkedInAt).split(' ').slice(-2).join(' ')}</div>` : ''}</div>` : '';
+  const payHtml = o.status === 'pending' ? `
+    <div class="pay"><span>카카오뱅크 · 예금주 ${esc(EVENT.bank.holder)} · 입금자명 <b>${esc(o.depositor)}</b></span><span class="num">${EVENT.bank.number}</span>
+    <button class="btn" type="button" id="cp">계좌 복사</button></div>
+    <p class="hint" style="text-align:left">입금이 확인되면 이 화면에 입장 QR이 생겨요. 이 페이지 주소를 저장해 두세요.</p>` : '';
+  app.innerHTML = `
+    <article class="ticket" style="--c:${c}">
+      <div class="t-head"><span class="dot">ADMISSION · 入場券</span><h1>ORβIT 400</h1><p>${EVENT.date} ${EVENT.dow} · OPEN ${EVENT.open} · START ${EVENT.start}<br>${esc(EVENT.venue)}</p></div>
+      <div class="t-body">
+        <div class="status" style="--s:${sc}"><i></i>${label}</div>
+        <div class="kv"><div><small>NAME</small><b>${esc(o.name)}</b></div><div><small>ADMIT</small><b>${o.qty}명</b></div></div>
+        ${o.status === 'pending' ? `<div class="kv"><div style="grid-column:1/-1"><small>입금할 금액</small><b>${won(o.amount)}</b></div></div>` : ''}
+        ${payHtml}${qrHtml}
+      </div>
+    </article>
+    ${o.status === 'paid' ? '<p class="hint">입구에서 이 QR을 보여주세요. 화면 밝기를 올리면 더 잘 찍혀요.</p>' : ''}
+    ${othersHtml()}`;
+  const cp = $('#cp'); if (cp) cp.onclick = async () => { try { await navigator.clipboard.writeText(`카카오뱅크 ${EVENT.bank.number} ${EVENT.bank.holder}`); toast('계좌번호를 복사했어요'); } catch { toast(EVENT.bank.number); } };
+  const box = $('#qr');
+  if (box && window.qrcode) {
+    const q = qrcode(0, 'M'); q.addData(`${location.origin}/t/${o.token}`); q.make();
+    box.innerHTML = q.createImgTag(8, 0, '입장 QR 코드');
+  }
+  document.title = `${label} · ORβIT 400`;
+}
+
+async function load() {
+  if (!token) { app.innerHTML = `<div class="msg"><h1>티켓 주소가 없어요</h1><a class="btn" href="/#ticket">예매하러 가기</a></div>`; return; }
+  try {
+    const r = await fetch('/api/order?t=' + encodeURIComponent(token), { cache: 'no-store' });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error);
+    render(j);
+    if (j.status === 'pending' || j.status === 'paid') setTimeout(load, 30000);
+  } catch (e) {
+    app.innerHTML = `<div class="msg"><h1>${esc(e.message || '티켓을 불러오지 못했어요')}</h1><a class="btn" href="/#ticket">예매 페이지로</a></div>${othersHtml()}`;
+  }
+}
+load();
+</script>
+</body>
+</html>

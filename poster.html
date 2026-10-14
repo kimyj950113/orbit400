@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POSTER · ORβIT 400</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Nanum+Gothic+Coding:wght@400;700&family=Black+Han+Sans&family=Noto+Sans+JP:wght@900&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/assets/base.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+/* A4 세로 포스터: 상단 거대 타이틀 → 대각 테이프 → 2×2 재킷 → 하단 정보 + 예매 QR */
+@page{size:A4;margin:0}
+html,body{background:#9aa0b4}
+body::after{display:none}
+.sheet{width:210mm;height:297mm;margin:20px auto;position:relative;overflow:hidden;background:var(--paper);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+@media print,(max-width:800px){html,body{background:var(--paper)}.sheet{margin:0;box-shadow:none}}
+.sheet::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--ink) 1.3px,transparent 1.5px);background-size:4mm 4mm;opacity:.12;
+  -webkit-mask-image:radial-gradient(70% 45% at 100% 0,#000,transparent 70%);mask-image:radial-gradient(70% 45% at 100% 0,#000,transparent 70%)}
+.grain{position:absolute;inset:0;background-image:var(--grain);opacity:.22;mix-blend-mode:multiply;pointer-events:none;z-index:9}
+
+.head{position:absolute;left:12mm;right:12mm;top:11mm}
+.chips{display:flex;gap:2.5mm;align-items:center}
+.chip{border:.7mm solid var(--ink);border-radius:99mm;padding:1mm 4mm;font-family:var(--f-dot);font-size:4.2mm;letter-spacing:.08em;background:var(--paper)}
+.chip.y{background:var(--yellow)}
+.chip.ko{font-family:var(--f-ko);letter-spacing:.02em}
+.vert{display:none;position:absolute;right:5mm;top:12mm;writing-mode:vertical-rl;font-family:var(--f-disp);font-size:3.6mm;letter-spacing:.32em;color:var(--ink-2)}
+.mega{font-family:var(--f-disp);font-size:38mm;line-height:.8;letter-spacing:-.04em;margin:5mm 0 0 -1.2mm;color:var(--ink);text-shadow:2.4mm 1.6mm 0 var(--red),-1.6mm -1.1mm 0 var(--blue)}
+.live{display:flex;align-items:flex-end;gap:5mm;margin-top:3mm}
+.live b{font-family:var(--f-disp);font-weight:400;font-size:34mm;line-height:.85;color:transparent;-webkit-text-stroke:.9mm var(--ink);letter-spacing:.02em}
+.live b i{font-style:normal;color:var(--yellow)}
+.live .jp{font-family:var(--f-disp);font-size:5mm;line-height:1.25;letter-spacing:.1em;padding-bottom:2mm}
+.live .jp span{display:block;color:var(--red)}
+
+.disc{position:absolute;right:-12mm;top:18mm;width:60mm;height:60mm;border-radius:50%;border:.8mm solid var(--ink);
+  background:radial-gradient(circle,var(--paper) 0 7%,var(--ink) 7.4% 8.6%,transparent 9%),repeating-radial-gradient(circle,transparent 0 1.6mm,rgba(20,19,28,.12) 1.6mm 1.85mm),
+  conic-gradient(var(--t1) 0 25%,var(--t2) 0 50%,var(--t3) 0 75%,var(--t4) 0);box-shadow:2.6mm 2.6mm 0 var(--ink);transform:rotate(-14deg)}
+.disc::after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 30deg,transparent,rgba(255,255,255,.55) 8%,transparent 16%,transparent 50%,rgba(255,255,255,.4) 58%,transparent 66%)}
+.sticker{position:absolute;display:grid;place-items:center;text-align:center;border:.8mm solid var(--ink);border-radius:50%;font-family:var(--f-disp);line-height:1;box-shadow:1.2mm 1.2mm 0 var(--ink)}
+.sticker.bands{width:24mm;height:24mm;right:42mm;top:58mm;background:var(--red);color:var(--paper);transform:rotate(-12deg);font-size:3.8mm;z-index:2}
+
+.tapes{position:absolute;left:-12mm;right:-12mm;top:88mm;height:26mm;z-index:3}
+.tape{position:absolute;left:0;right:0;white-space:nowrap;overflow:hidden;border-block:.7mm solid var(--ink);font-family:var(--f-disp);font-size:5mm;padding:2mm 0}
+.tape.a{background:var(--yellow);transform:rotate(-2.6deg);top:0;z-index:2}
+.tape.b{background:var(--ink);color:var(--paper);transform:rotate(1.4deg);top:13mm}
+
+.grid{position:absolute;left:12mm;right:12mm;top:117mm;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:5mm}
+.jk{position:relative;border:.8mm solid var(--ink);box-shadow:1.8mm 1.8mm 0 var(--ink);overflow:hidden;background:var(--paper);display:grid;grid-template-rows:auto auto 1fr}
+.jk .art{position:relative;aspect-ratio:2.7;background:var(--ink);overflow:hidden}
+.jk canvas{position:absolute;inset:0;width:100%;height:100%}
+.jk .k{position:absolute;left:2.5mm;top:-.5mm;font-family:var(--f-disp);font-size:16mm;line-height:1.05;color:var(--paper);-webkit-text-stroke:.8mm var(--ink);paint-order:stroke fill;text-shadow:1.2mm 1.2mm 0 var(--ink)}
+.jk .kata{position:absolute;right:2.4mm;top:2.2mm;writing-mode:vertical-rl;font-family:var(--f-disp);font-size:1.95mm;letter-spacing:0;background:var(--paper);border:.5mm solid var(--ink);padding:1.1mm .6mm;white-space:nowrap;max-height:calc(100% - 4.4mm);overflow:hidden}
+.jk .bar{display:flex;align-items:center;gap:2.5mm;padding:1.6mm 3mm;border-top:.8mm solid var(--ink)}
+.jk .no{font-family:var(--f-dot);font-size:2.8mm;background:var(--c);color:var(--paper);padding:.5mm 1.6mm;border:.5mm solid var(--ink);white-space:nowrap}
+.jk .nm{font-family:var(--f-ko);font-size:5.2mm;line-height:1;flex:1;white-space:nowrap}
+.jk .tm{font-family:var(--f-dot);font-size:3.4mm}
+.jk .mem{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:.8mm;padding:1.7mm 2.6mm 2mm;border-top:.4mm dashed color-mix(in oklab,var(--ink) 45%,transparent);font-size:2.5mm;line-height:1.2;font-weight:700;letter-spacing:-.01em}
+.jk .mem span{white-space:nowrap}
+.jk .mem i{flex:none;width:.9mm;height:.9mm;border-radius:50%;background:var(--c)}
+
+.foot{position:absolute;left:12mm;right:12mm;bottom:9mm;display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:end}
+.info{display:grid;gap:3mm}
+.times{display:flex;gap:7mm;font-family:var(--f-ko);font-size:9mm;line-height:1}
+.times small{display:block;font-family:var(--f-dot);font-size:3.2mm;letter-spacing:.16em;color:var(--ink-2);margin-bottom:1.2mm}
+.place{font-family:var(--f-ko);font-size:7mm;line-height:1.1}
+.place small{display:block;font-family:var(--f-body);font-weight:600;font-size:3.6mm;margin-top:1.5mm;color:var(--ink-2)}
+.price{display:inline-flex;align-items:center;gap:3mm;align-self:start}
+.price b{font-family:var(--f-disp);font-weight:400;font-size:9mm;background:var(--yellow);border:.8mm solid var(--ink);padding:1mm 4mm;box-shadow:1.2mm 1.2mm 0 var(--ink);transform:rotate(-2deg)}
+.price span{font-weight:700;font-size:3.6mm}
+.qr{background:var(--red);border:.8mm solid var(--ink);box-shadow:2mm 2mm 0 var(--ink);padding:2.6mm;display:grid;gap:1.6mm;justify-items:center;color:var(--paper);width:40mm}
+.qr .code{background:#fff;border:.6mm solid var(--ink);padding:1.4mm;width:33mm;height:33mm}
+.qr .code svg{width:100%;height:100%;display:block}
+.qr b{font-family:var(--f-disp);font-weight:400;font-size:5.4mm;line-height:1}
+.qr span{font-family:var(--f-dot);font-size:2.9mm;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="grain"></div>
+  <div class="vert">宇宙ステーション・二〇二六年十二月二十日・ライブ</div>
+  <div class="head">
+    <div class="chips"><span class="chip y">2026.12.20 SUN</span><span class="chip ko">홍대 우주정거장</span></div>
+    <div class="mega">ORβIT</div>
+    <div class="live"><b>400<i>!</i></b></div>
+  </div>
+  <div class="disc" id="disc"></div>
+  <div class="sticker bands">4 BANDS<br>31 SONGS</div>
+  <div class="tapes">
+    <div class="tape a" id="ta"></div>
+    <div class="tape b" id="tb"></div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="foot">
+    <div class="info">
+      <div class="times"><div><small>OPEN</small>16:00</div><div><small>START</small>17:00</div></div>
+      <div class="place">홍대 우주정거장<small>서울 마포구 와우산로29길 16, 지하 1층 · 홍대입구역 도보 7~8분</small></div>
+      <div class="price"><b>₩7,000</b><span>1인 · 스탠딩<br>사전 예매 후 QR 입장</span></div>
+    </div>
+    <div class="qr"><div class="code" id="qr"></div><b>TICKET</b><span>orbit400.vercel.app</span></div>
+  </div>
+</div>
+<script type="module">
+import { TEAMS, esc } from '/assets/data.js';
+import { mountArt } from '/assets/art.js';
+document.getElementById('ta').textContent = 'ORβIT 400 ★ ライブ ★ 2026.12.20 SUN ★ 홍대 우주정거장 ★ '.repeat(4);
+document.getElementById('tb').textContent = (TEAMS.map(t => `${t.jp} ★ ${t.ko}`).join(' ★ ') + ' ★ ').repeat(2);
+document.getElementById('disc').innerHTML = TEAMS.map((t, i) => {
+  const a = (i * 90 + 45) * Math.PI / 180, r = 17.5;
+  return `<span style="position:absolute;left:calc(50% + ${(Math.sin(a) * r).toFixed(1)}mm);top:calc(50% - ${(Math.cos(a) * r).toFixed(1)}mm);transform:translate(-50%,-50%) rotate(14deg);font-family:var(--f-disp);font-size:9mm;color:var(--paper);-webkit-text-stroke:.6mm var(--ink);paint-order:stroke fill">${t.k}</span>`;
+}).join('');
+document.getElementById('grid').innerHTML = TEAMS.map((t, i) => `
+  <div class="jk" style="--c:${t.color}">
+    <div class="art"><canvas data-art="${t.art}"></canvas><span class="k">${t.k}</span><span class="kata">${esc(t.jp)}</span></div>
+    <div class="bar"><span class="no">TEAM 0${i + 1}</span><span class="nm">${esc(t.ko)}</span><span class="tm">${t.start}</span></div>
+    <div class="mem">${[...new Set(Object.values(t.parts).flat())].map(n => `<span>${esc(n)}</span>`).join('<i></i>')}</div>
+  </div>`).join('');
+document.querySelectorAll('.jk canvas').forEach(c => mountArt(c, c.dataset.art));
+const q = qrcode(0, 'M'); q.addData('https://orbit400.vercel.app/#ticket'); q.make();
+document.getElementById('qr').innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+</script>
+</body>
+</html>

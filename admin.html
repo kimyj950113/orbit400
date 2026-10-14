@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>STAFF · ORβIT 400</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#14131c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Nanum+Gothic+Coding:wght@400;700&family=Black+Han+Sans&family=Noto+Sans+JP:wght@900&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/assets/base.css">
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<style>
+body{min-height:100dvh}
+.bar{background:var(--ink);color:var(--paper);padding-top:env(safe-area-inset-top,0px);position:sticky;top:0;z-index:20}
+.bar .wrap{display:flex;align-items:center;gap:12px;height:58px}
+.bar .logo{font-family:var(--f-disp);font-size:18px}
+.bar .logo b{color:var(--yellow)}
+.tabs{display:flex;gap:6px;margin-left:auto}
+.tabs button{font:inherit;font-weight:700;border:2px solid var(--paper);background:transparent;color:var(--paper);padding:7px 14px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+main{padding-block:22px 60px}
+.login{max-width:360px;margin:12vh auto 0;display:grid;gap:14px}
+.login h1{font-family:var(--f-disp);font-size:40px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.stat{border:2.5px solid var(--ink);border-radius:14px;background:#fff;padding:12px 14px}
+.stat small{display:block;font-family:var(--f-dot);font-size:11px;letter-spacing:.16em;color:var(--ink-2)}
+.stat b{font-family:var(--f-disp);font-size:28px;font-variant-numeric:tabular-nums}
+.stat.hl{background:var(--yellow)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.tools input{font:inherit;font-size:16px;padding:9px 14px;border:2.5px solid var(--ink);border-radius:999px;min-width:0;flex:1 1 200px;background:#fff}
+.filt{display:flex;gap:6px;flex-wrap:wrap}
+.filt button{font:inherit;font-size:13px;font-weight:700;border:2px solid var(--ink);background:#fff;padding:6px 12px;border-radius:999px;cursor:pointer;color:var(--ink)}
+.filt button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.list{display:grid;gap:10px}
+.row{border:2.5px solid var(--ink);border-radius:14px;background:#fff;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border-left:10px solid var(--s)}
+.row .who{font-weight:700;font-size:17px}
+.row .who small{font-weight:400;color:var(--ink-2);font-size:13px;margin-left:6px}
+.row .meta{font-size:13px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:4px 12px;font-variant-numeric:tabular-nums}
+.row .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.row .acts button{font:inherit;font-size:13px;font-weight:700;border:2px solid var(--ink);border-radius:999px;padding:7px 12px;cursor:pointer;background:#fff;color:var(--ink)}
+.row .acts .p{background:var(--ok);color:#fff;border-color:var(--ok)}
+.row .acts .c{background:var(--t4);color:#fff;border-color:var(--t4)}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--s);color:#fff;margin-right:6px}
+.quick{border:3px solid var(--ink);border-radius:16px;background:var(--yellow);padding:14px;margin-bottom:16px;display:grid;gap:10px;box-shadow:5px 5px 0 var(--ink)}
+.quick .qh{display:flex;justify-content:space-between;align-items:baseline;font-weight:700}
+.quick .qh small{font-family:var(--f-dot);font-weight:400;font-size:12px}
+.quick input{font:inherit;font-size:18px;padding:12px 14px;border:2.5px solid var(--ink);border-radius:12px;background:#fff;width:100%}
+.qm{display:grid;gap:8px}
+.qm .hit{display:flex;align-items:center;gap:10px;background:#fff;border:2.5px solid var(--ink);border-radius:12px;padding:10px 12px}
+.qm .hit.best{box-shadow:0 0 0 3px var(--ok)}
+.qm .hit div{flex:1;min-width:0}
+.qm .hit b{font-size:17px}
+.qm .hit small{display:block;color:var(--ink-2);font-size:12.5px}
+.qm .hit button{font:inherit;font-weight:700;border:2px solid var(--ok);background:var(--ok);color:#fff;border-radius:999px;padding:9px 14px;cursor:pointer;white-space:nowrap}
+.qm .none{font-size:14px;color:var(--ink-2)}
+.empty{padding:40px;text-align:center;color:var(--ink-2);border:2.5px dashed var(--ink);border-radius:14px}
+@media (max-width:620px){.row{grid-template-columns:minmax(0,1fr)}.row .acts{justify-content:flex-start}}
+
+.scan{display:grid;gap:14px;justify-items:center}
+.cam{position:relative;width:100%;max-width:480px;aspect-ratio:3/4;background:var(--ink);border:3px solid var(--ink);border-radius:18px;overflow:hidden}
+.cam video{width:100%;height:100%;object-fit:cover}
+.cam .frame{position:absolute;inset:18%;border:4px solid var(--yellow);border-radius:18px;box-shadow:0 0 0 999px rgba(20,19,28,.35)}
+.cam .idle{position:absolute;inset:0;display:grid;place-items:center;color:var(--paper);text-align:center;padding:20px}
+.result{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px;background:var(--rc);color:#fff;text-align:center}
+.result[hidden]{display:none}
+.result .big{font-family:var(--f-disp);font-size:clamp(48px,14vw,96px);line-height:1}
+.result .nm{font-family:var(--f-ko);font-size:clamp(28px,8vw,48px);margin-top:10px}
+.result p{font-size:18px;margin:10px 0 0}
+.result .btn{margin-top:24px;background:#fff;color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.manual{display:flex;gap:8px;width:100%;max-width:480px}
+.manual input{flex:1;min-width:0;font:inherit;font-size:16px;padding:10px 14px;border:2.5px solid var(--ink);border-radius:999px;background:#fff}
+.sm{font-size:13px;color:var(--ink-2);text-align:center;max-width:480px;margin:0}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap"><span class="logo">ORβIT<b>★</b>STAFF</span>
+  <div class="tabs" role="tablist" id="tabs" hidden>
+    <button role="tab" aria-selected="true" data-tab="orders">예매</button>
+    <button role="tab" aria-selected="false" data-tab="scan">입장 스캔</button>
+  </div></div></header>
+<main class="wrap" id="app"></main>
+<div class="result" id="result" hidden></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script type="module">
+import { esc, won } from '/assets/data.js';
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); };
+let PW = ''; try { PW = sessionStorage.getItem('live1220.pw') || ''; } catch {}
+let orders = [], filter = 'all', q = '', tab = 'orders';
+const S = { pending: ['입금 대기', 'var(--warn)'], paid: ['입금 확인', 'var(--ok)'], checked: ['입장 완료', 'var(--t4)'], canceled: ['취소', 'var(--ink-2)'] };
+const fmt = ms => ms ? new Date(ms).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+const phoneFmt = p => p ? p.replace(/^(\d{3})(\d{3,4})(\d{4})$/, '$1-$2-$3') : '';
+
+async function api(method, body) {
+  const r = await fetch('/api/admin', { method, headers: { 'content-type': 'application/json', 'x-admin-key': PW }, body: body ? JSON.stringify(body) : undefined, cache: 'no-store' });
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401) { logout(); throw new Error(j.error); }
+  return { ok: r.ok, status: r.status, ...j };
+}
+function logout() { PW = ''; try { sessionStorage.removeItem('live1220.pw'); } catch {} stopCam(); showLogin(); }
+
+function showLogin(msg = '') {
+  $('#tabs').hidden = true;
+  app.innerHTML = `<form class="login" id="lf"><h1>STAFF</h1>
+    <div class="field"><label for="pw">스태프 비밀번호</label><input id="pw" type="password" autocomplete="current-password" required></div>
+    <div class="err" style="color:var(--bad);font-weight:600">${esc(msg)}</div><button class="btn">들어가기</button></form>`;
+  $('#lf').onsubmit = async e => {
+    e.preventDefault(); PW = $('#pw').value;
+    try { const j = await api('GET'); if (!j.ok) throw new Error(j.error); try { sessionStorage.setItem('live1220.pw', PW); } catch {} orders = j.orders; start(); }
+    catch (ex) { showLogin(ex.message || '비밀번호가 맞지 않아요.'); }
+  };
+}
+
+function start() {
+  $('#tabs').hidden = false;
+  document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { tab = b.dataset.tab; document.querySelectorAll('#tabs button').forEach(x => x.setAttribute('aria-selected', x === b)); draw(); });
+  draw();
+  setInterval(async () => { if (tab === 'orders' && !document.hidden) { try { const j = await api('GET'); if (j.ok) { orders = j.orders; drawList(); drawStats(); if (!($('#qn')?.value)) drawQuick(); } } catch {} } }, 20000);
+}
+
+function draw() {
+  stopCam();
+  if (tab === 'orders') {
+    app.innerHTML = `<div class="stats" id="stats"></div>
+      <form class="quick" id="qf" autocomplete="off"><div class="qh"><label for="qn">빠른 입금 확인</label><small id="qcount"></small></div>
+        <input id="qn" placeholder="입금자명 입력 또는 입금 알림 붙여넣기" enterkeyhint="done"><div class="qm" id="qm"></div></form>
+      <div class="tools"><input id="q" placeholder="이름·입금자·전화번호 검색" value="${esc(q)}" aria-label="검색"><div class="filt" id="filt">
+      ${[['all', '전체'], ['pending', '입금 대기'], ['paid', '입금 확인'], ['checked', '입장 완료'], ['canceled', '취소']].map(([k, l]) => `<button data-f="${k}" aria-pressed="${filter === k}">${l}</button>`).join('')}</div></div>
+      <div class="list" id="list"></div>`;
+    $('#q').oninput = e => { q = e.target.value.trim(); drawList(); };
+    $('#filt').onclick = e => { const b = e.target.closest('button'); if (!b) return; filter = b.dataset.f; document.querySelectorAll('#filt button').forEach(x => x.setAttribute('aria-pressed', x === b)); drawList(); };
+    $('#list').onclick = onAction;
+    $('#qn').oninput = drawQuick;
+    $('#qf').onsubmit = e => { e.preventDefault(); const b = $('#qm .best button'); if (b) b.click(); };
+    $('#qm').onclick = async e => {
+      const b = e.target.closest('button[data-t]'); if (!b) return;
+      b.disabled = true;
+      try {
+        const j = await api('POST', { token: b.dataset.t, action: 'confirm' });
+        if (!j.ok) throw new Error(j.error);
+        orders = orders.map(o => o.token === j.order.token ? j.order : o);
+        toast(`${j.order.name} ${won(j.order.amount)} 입금 확인했어요`);
+        $('#qn').value = ''; drawQuick(); drawStats(); drawList(); $('#qn').focus();
+      } catch (ex) { toast(ex.message); b.disabled = false; }
+    };
+    drawStats(); drawList(); drawQuick();
+  } else drawScan();
+}
+
+function drawStats() {
+  const live = orders.filter(o => o.status !== 'canceled');
+  const sum = (arr, f) => arr.reduce((a, o) => a + f(o), 0);
+  const paid = live.filter(o => o.status !== 'pending');
+  const s = [
+    ['신청', `${live.length}건 · ${sum(live, o => o.qty)}명`],
+    ['입금 대기', `${sum(live.filter(o => o.status === 'pending'), o => o.qty)}명`],
+    ['입금 확인', `${sum(paid, o => o.qty)}명`, true],
+    ['입장', `${sum(live.filter(o => o.status === 'checked'), o => o.qty)} / ${sum(paid, o => o.qty)}명`],
+    ['입금액', won(sum(paid, o => o.amount))],
+  ];
+  const el = $('#stats'); if (el) el.innerHTML = s.map(([k, v, h]) => `<div class="stat${h ? ' hl' : ''}"><small>${k}</small><b>${v}</b></div>`).join('');
+}
+
+function drawList() {
+  const el = $('#list'); if (!el) return;
+  const qq = q.replace(/-/g, '').toLowerCase();
+  const rows = orders.filter(o => (filter === 'all' || o.status === filter) && (!qq || [o.name, o.depositor, o.phone, o.token].some(v => String(v || '').toLowerCase().includes(qq))));
+  if (!rows.length) { el.innerHTML = `<div class="empty">${orders.length ? '조건에 맞는 예매가 없어요' : '아직 예매 신청이 없어요. 메인 페이지에서 신청이 들어오면 여기에 떠요.'}</div>`; return; }
+  el.innerHTML = rows.map(o => {
+    const [l, c] = S[o.status];
+    const acts = {
+      pending: `<button class="p" data-a="confirm">입금 확인</button><button data-a="cancel">취소</button>`,
+      paid: `<button class="c" data-a="checkin">입장 처리</button><button data-a="unconfirm">입금 취소</button>`,
+      checked: `<button data-a="uncheck">입장 되돌리기</button>`,
+      canceled: `<button data-a="restore">복구</button><button data-a="delete">삭제</button>`,
+    }[o.status];
+    return `<div class="row" style="--s:${c}" data-t="${esc(o.token)}">
+      <div><div class="who"><span class="tag">${l}</span>${esc(o.name)} <small>${o.qty}명 · ${won(o.amount)}</small></div>
+      <div class="meta"><span>입금자 ${esc(o.depositor)}</span><span>${esc(phoneFmt(o.phone))}</span><span>신청 ${fmt(o.createdAt)}</span>${o.checkedInAt ? `<span>입장 ${fmt(o.checkedInAt)}</span>` : ''}<a href="/t/${esc(o.token)}" target="_blank" rel="noopener">티켓 링크</a></div></div>
+      <div class="acts">${acts}</div></div>`;
+  }).join('');
+}
+
+const STOP = new Set(['입금', '출금', '카카오뱅크', '잔액', '원', '이체', '입출금', '알림', '받은', '보낸']);
+function drawQuick() {
+  const box = $('#qm'); if (!box) return;
+  const pend = orders.filter(o => o.status === 'pending');
+  $('#qcount').textContent = pend.length ? `입금 대기 ${pend.length}건` : '입금 대기 없음';
+  const raw = ($('#qn').value || '').trim();
+  if (!raw) { box.innerHTML = ''; return; }
+  const amt = (raw.replace(/,/g, '').match(/(\d{4,7})\s*원/) || [])[1];
+  const words = (raw.match(/[가-힣A-Za-z]{2,}/g) || []).map(w => w.replace(/(님이|님께서|님께|님)$/, '')).filter(w => w.length > 1 && !STOP.has(w));
+  const norm = v => String(v || '').replace(/\s/g, '').toLowerCase();
+  const scored = pend.map(o => {
+    const names = [norm(o.depositor), norm(o.name)];
+    let sc = 0;
+    for (const w of words.map(norm)) {
+      if (names.includes(w)) sc = Math.max(sc, 3);
+      else if (names.some(n => n.includes(w) || w.includes(n))) sc = Math.max(sc, 1);
+    }
+    if (amt && +amt === o.amount) sc += sc ? 2 : 0;
+    return { o, sc };
+  }).filter(x => x.sc > 0).sort((a, b) => b.sc - a.sc || a.o.createdAt - b.o.createdAt);
+  if (!scored.length) { box.innerHTML = `<div class="none">입금 대기 중에 '${esc(words.join(' ') || raw)}'와 맞는 예매가 없어요</div>`; return; }
+  const top = scored[0], best = top.sc >= 3 && (scored.length === 1 || scored[1].sc < top.sc);
+  box.innerHTML = scored.slice(0, 5).map((x, i) => `<div class="hit${best && i === 0 ? ' best' : ''}"><div><b>${esc(x.o.depositor)}</b>${x.o.depositor !== x.o.name ? ` (${esc(x.o.name)})` : ''}<small>${x.o.qty}명 · ${won(x.o.amount)}${amt && +amt !== x.o.amount ? ` · 알림 금액 ${won(+amt)}과 달라요` : ''} · ${fmt(x.o.createdAt)} 신청</small></div><button type="button" data-t="${esc(x.o.token)}">입금 확인</button></div>`).join('')
+    + (best ? '<div class="none">엔터를 누르면 초록 테두리 예매가 확인돼요</div>' : '');
+}
+
+const pendingConfirm = new Set();
+async function onAction(e) {
+  const b = e.target.closest('button[data-a]'); if (!b) return;
+  const token = b.closest('.row').dataset.t, action = b.dataset.a;
+  if (action === 'delete' && !pendingConfirm.has(token)) { pendingConfirm.add(token); b.textContent = '한 번 더 누르면 삭제'; setTimeout(() => pendingConfirm.delete(token), 3000); return; }
+  b.disabled = true;
+  try {
+    const j = await api('POST', { token, action });
+    if (!j.ok) throw new Error(j.error);
+    if (j.deleted) orders = orders.filter(o => o.token !== token);
+    else orders = orders.map(o => o.token === token ? j.order : o);
+    drawStats(); drawList(); drawQuick();
+    toast({ confirm: '입금 확인했어요. 티켓에 QR이 생겼어요', checkin: '입장 처리했어요', cancel: '취소했어요', delete: '삭제했어요' }[action] || '바꿨어요');
+  } catch (ex) { toast(ex.message); b.disabled = false; }
+}
+
+// ---------- scanner ----------
+let stream = null, raf = 0, busy = false, detector = null;
+function stopCam() { cancelAnimationFrame(raf); if (stream) stream.getTracks().forEach(t => t.stop()); stream = null; }
+function drawScan() {
+  app.innerHTML = `<div class="scan">
+    <div class="cam"><video id="v" playsinline muted></video><div class="frame"></div><div class="idle" id="idle"><button class="btn" id="go" style="background:var(--yellow);color:var(--ink)">카메라 켜기</button></div></div>
+    <form class="manual" id="mf"><input id="code" placeholder="이름으로 찾기" aria-label="이름으로 찾기"><button class="btn">찾기</button></form>
+    <p class="sm">관객의 티켓 QR을 네모 안에 비추면 바로 입장 처리돼요. QR이 안 찍히면 이름으로 찾아서 예매 탭에서 입장 처리하세요.</p></div>`;
+  $('#go').onclick = startCam;
+  $('#mf').onsubmit = e => { e.preventDefault(); q = $('#code').value.trim(); filter = 'all'; tab = 'orders'; document.querySelectorAll('#tabs button').forEach(x => x.setAttribute('aria-selected', x.dataset.tab === 'orders')); draw(); };
+}
+async function startCam() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 } }, audio: false });
+  } catch { $('#idle').innerHTML = '<p>카메라를 쓸 수 없어요. 브라우저 설정에서 카메라 권한을 허용해 주세요.</p>'; return; }
+  const v = $('#v'); v.srcObject = stream; await v.play(); $('#idle').hidden = true;
+  if ('BarcodeDetector' in window) { try { detector = new BarcodeDetector({ formats: ['qr_code'] }); } catch { detector = null; } }
+  const cv = document.createElement('canvas'), ctx = cv.getContext('2d', { willReadFrequently: true });
+  const tick = async () => {
+    if (!stream) return;
+    if (!busy && v.readyState >= 2) {
+      let text = null;
+      try {
+        if (detector) { const r = await detector.detect(v); text = r[0]?.rawValue || null; }
+        else if (window.jsQR) {
+          const w = 480, h = Math.round(v.videoHeight / v.videoWidth * w) || 480;
+          cv.width = w; cv.height = h; ctx.drawImage(v, 0, 0, w, h);
+          text = jsQR(ctx.getImageData(0, 0, w, h).data, w, h, { inversionAttempts: 'dontInvert' })?.data || null;
+        }
+      } catch {}
+      if (text) await handleCode(text);
+    }
+    raf = requestAnimationFrame(tick);
+  };
+  tick();
+}
+async function handleCode(text) {
+  const m = String(text).match(/\/t\/([A-Za-z0-9]{12,40})/) || String(text).match(/^([A-Za-z0-9]{12,40})$/);
+  if (!m) return;
+  busy = true;
+  if (navigator.vibrate) navigator.vibrate(80);
+  let j;
+  try { j = await api('POST', { token: m[1], action: 'checkin' }); } catch (e) { j = { ok: false, error: e.message }; }
+  const o = j.order;
+  if (o) orders = orders.some(x => x.token === o.token) ? orders.map(x => x.token === o.token ? o : x) : [o, ...orders];
+  const res = $('#result');
+  const color = j.ok ? 'var(--ok)' : j.code === 'already' ? 'var(--warn)' : 'var(--bad)';
+  res.style.setProperty('--rc', color);
+  res.innerHTML = `<div><div class="big">${j.ok ? 'OK!' : j.code === 'already' ? 'USED' : 'NO'}</div>
+    ${o ? `<div class="nm">${esc(o.name)} · ${o.qty}명</div>` : ''}
+    <p>${j.ok ? '입장 처리했어요' : esc(j.error || '확인할 수 없는 QR이에요')}${j.code === 'already' && o?.checkedInAt ? ` (${fmt(o.checkedInAt)})` : ''}</p>
+    <button class="btn" id="next">다음 손님</button></div>`;
+  res.hidden = false;
+  const next = () => { res.hidden = true; setTimeout(() => busy = false, 600); };
+  $('#next').onclick = next;
+  if (j.ok) setTimeout(() => { if (!res.hidden) next(); }, 2500);
+}
+
+if (PW) api('GET').then(j => { if (j.ok) { orders = j.orders; start(); } else showLogin(); }).catch(() => showLogin());
+else showLogin();
+</script>
+</body>
+</html>

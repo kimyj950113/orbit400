@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ORβIT 400 · 홍대 우주정거장</title>
+<meta name="description" content="2026.12.20(일) 홍대 우주정거장 · 4밴드 31곡 J-POP·애니송 카피 라이브. OPEN 16:00 START 17:00 · 티켓 7,000원.">
+<link rel="canonical" href="https://orbit400.vercel.app/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ORβIT 400">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://orbit400.vercel.app/">
+<meta property="og:title" content="ORβIT 400 · 홍대 우주정거장">
+<meta property="og:description" content="2026.12.20 SUN 17:00 · 4 BANDS 31 SONGS · 티켓 7,000원">
+<meta property="og:image" content="https://orbit400.vercel.app/assets/og-v4.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ORβIT 400 — 2026.12.20 SUN 홍대 우주정거장, 4 BANDS 31 SONGS, ₩7,000">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ORβIT 400 · 홍대 우주정거장">
+<meta name="twitter:description" content="2026.12.20 SUN 17:00 · 4 BANDS 31 SONGS · 티켓 7,000원">
+<meta name="twitter:image" content="https://orbit400.vercel.app/assets/og-v4.jpg">
+<meta name="theme-color" content="#eef0f6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Nanum+Gothic+Coding:wght@400;700&family=Black+Han+Sans&family=Noto+Sans+JP:wght@900&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/assets/base.css">
+<style>
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in oklab,var(--paper) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2.5px solid var(--ink);padding-top:env(safe-area-inset-top,0px)}
+.nav .wrap{display:flex;align-items:center;gap:18px;height:60px}
+.logo{font-family:var(--f-disp);font-size:20px;text-decoration:none;letter-spacing:-.01em}
+.logo b{color:var(--red)}
+.nav nav{display:flex;gap:18px;margin-left:auto;font-family:var(--f-dot);font-size:13px;letter-spacing:.14em}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--red)}
+.nav .btn{padding:8px 16px;font-size:14px;box-shadow:3px 3px 0 var(--red)}
+#myTix[hidden]{display:none}
+@media (max-width:720px){.nav nav{display:none}.nav .btn{margin-left:auto}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;border-bottom:2.5px solid var(--ink)}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--ink) 1.3px,transparent 1.5px);background-size:13px 13px;opacity:.13;
+  -webkit-mask-image:radial-gradient(70% 80% at 100% 0,#000,transparent 70%);mask-image:radial-gradient(70% 80% at 100% 0,#000,transparent 70%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr);gap:24px;align-items:center;padding-block:44px 120px}
+.eyebrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--f-dot);font-size:14px;letter-spacing:.12em}
+.chip{border:2px solid var(--ink);border-radius:999px;padding:3px 12px;background:var(--paper)}
+.chip.y{background:var(--yellow)}
+.chip.ko{font-family:var(--f-ko);letter-spacing:.02em}
+.mega{font-family:var(--f-disp);font-size:clamp(70px,10.5vw,150px);line-height:.8;letter-spacing:-.04em;margin:18px 0 0;position:relative;color:var(--ink);
+  text-shadow:.045em .03em 0 var(--red),-.03em -.02em 0 var(--blue)}
+.mega .live{display:block;color:transparent;-webkit-text-stroke:3px var(--ink);text-shadow:none;font-size:.9em;letter-spacing:.02em;margin-top:.06em}
+.mega .live i{font-style:normal;color:var(--yellow);-webkit-text-stroke:3px var(--ink)}
+.sub{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:22px;font-family:var(--f-ko);font-size:clamp(20px,2.6vw,28px)}
+.sub span{display:inline-flex;gap:8px;align-items:baseline}
+.sub small{font-family:var(--f-dot);font-size:13px;color:var(--ink-2);letter-spacing:.14em}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+
+.disc-wrap{container-type:inline-size;position:relative;aspect-ratio:1;max-width:520px;width:100%;justify-self:center}
+.disc{position:absolute;inset:4%;border-radius:50%;border:3px solid var(--ink);
+  background:
+    radial-gradient(circle,var(--paper) 0 7%,var(--ink) 7.4% 8.6%,transparent 9%),
+    repeating-radial-gradient(circle,transparent 0 6px,rgba(20,19,28,.12) 6px 7px),
+    conic-gradient(var(--t1) 0 25%,var(--t2) 0 50%,var(--t3) 0 75%,var(--t4) 0);
+  box-shadow:10px 10px 0 var(--ink);animation:spin 18s linear infinite}
+.disc::after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 30deg,transparent,rgba(255,255,255,.55) 8%,transparent 16%,transparent 50%,rgba(255,255,255,.4) 58%,transparent 66%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.disc .kj{position:absolute;left:50%;top:50%;width:0;height:0}
+.disc .kj span{position:absolute;transform:translate(-50%,-50%);font-family:var(--f-disp);font-size:clamp(34px,6vw,64px);color:var(--paper);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill}
+.sticker{container-type:inline-size;z-index:2;position:absolute;display:grid;place-items:center;text-align:center;border:3px solid var(--ink);border-radius:50%;font-family:var(--f-disp);line-height:1;box-shadow:4px 4px 0 var(--ink)}
+.sticker.price{width:30%;aspect-ratio:1;right:-2%;bottom:4%;background:var(--yellow);transform:rotate(12deg)}
+.sticker.price>span{font-size:16cqw;letter-spacing:-.02em}
+.sticker.price small{display:block;font-family:var(--f-dot);font-size:9cqw;margin-top:6cqw;letter-spacing:.1em}
+.sticker.bands{width:24%;aspect-ratio:1;left:-2%;top:2%;background:var(--red);color:var(--paper);transform:rotate(-14deg)}
+.sticker.bands>span{font-size:15cqw}
+.vert{position:absolute;right:max(10px,env(safe-area-inset-right,0px));top:40px;writing-mode:vertical-rl;font-family:var(--f-disp);font-size:15px;letter-spacing:.3em;color:var(--ink-2)}
+
+.tapes{position:absolute;left:-5%;right:-5%;bottom:22px;height:110px;pointer-events:none}
+.tape{position:absolute;left:0;right:0;white-space:nowrap;overflow:hidden;border-block:2.5px solid var(--ink);font-family:var(--f-disp);font-size:20px;padding:8px 0}
+.tape span{display:inline-block;animation:tape 28s linear infinite}
+.tape.a{background:var(--yellow);transform:rotate(-2.4deg);top:10px}
+.tape.b{background:var(--ink);color:var(--paper);transform:rotate(1.6deg);top:52px}
+.tape.b span{animation-direction:reverse}
+@keyframes tape{to{transform:translateX(-50%)}}
+
+/* ---------- SECTIONS ---------- */
+section{scroll-margin-top:70px}
+.sec{padding-block:80px 40px}
+.sh{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:30px}
+.sh h2{font-family:var(--f-disp);font-size:clamp(44px,8vw,92px);line-height:.85;margin:0;letter-spacing:-.03em}
+.sh .jp{font-family:var(--f-disp);font-size:clamp(16px,2vw,22px);color:var(--red);writing-mode:vertical-rl;letter-spacing:.2em;line-height:1}
+.sh p{margin:0 0 6px auto;color:var(--ink-2);font-size:14px}
+
+/* ---------- LINEUP ---------- */
+.lineup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.jacket{position:relative;aspect-ratio:1;border:3px solid var(--ink);background:var(--ink);cursor:pointer;padding:0;font:inherit;color:inherit;text-align:left;
+  box-shadow:8px 8px 0 var(--ink);transition:transform .2s,box-shadow .2s;overflow:hidden;display:block;width:100%}
+.jacket:hover{transform:translate(-4px,-4px) rotate(-.6deg);box-shadow:12px 12px 0 var(--c)}
+.jacket canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.jacket .k{position:absolute;left:4%;top:2%;font-family:var(--f-disp);font-size:clamp(90px,15vw,190px);line-height:1;color:var(--paper);-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;text-shadow:6px 6px 0 var(--ink)}
+.jacket .kata{position:absolute;right:5%;top:5%;writing-mode:vertical-rl;font-family:var(--f-disp);font-size:clamp(12px,1.6vw,17px);letter-spacing:.14em;background:var(--paper);border:2px solid var(--ink);padding:10px 4px;max-height:80%}
+.jacket .bar{position:absolute;left:0;right:0;bottom:0;background:var(--paper);border-top:3px solid var(--ink);display:flex;align-items:center;gap:12px;padding:12px 16px}
+.jacket .no{font-family:var(--f-dot);font-size:13px;background:var(--c);color:var(--paper);padding:3px 8px;border:2px solid var(--ink);white-space:nowrap}
+.jacket .nm{font-family:var(--f-ko);font-size:clamp(20px,2.6vw,30px);line-height:1.05;min-width:0;flex:1;overflow-wrap:anywhere}
+.jacket .tm{font-family:var(--f-dot);font-size:14px;white-space:nowrap}
+.jacket .open{position:absolute;right:5%;bottom:calc(64px + 4%);background:var(--ink);color:var(--paper);font-family:var(--f-dot);font-size:12px;letter-spacing:.14em;padding:6px 10px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.2s}
+.jacket:hover .open,.jacket:focus-visible .open{opacity:1;transform:none}
+@media (hover:none){.jacket .open{opacity:1;transform:none}}
+@media (max-width:720px){.lineup{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- LINER (team modal) ---------- */
+dialog.liner{border:3px solid var(--ink);padding:0;max-width:min(1000px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);background:var(--paper);color:var(--ink);box-shadow:12px 12px 0 var(--c);overflow:auto}
+dialog.liner::backdrop{background:rgba(20,19,28,.6);backdrop-filter:blur(3px)}
+.liner-in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.liner-art{position:relative;min-height:340px;border-right:3px solid var(--ink)}
+.liner-art canvas{position:absolute;inset:0;width:100%;height:100%}
+.liner-art .k{position:absolute;left:18px;bottom:6px;font-family:var(--f-disp);font-size:clamp(110px,16vw,200px);line-height:1;color:var(--paper);-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;text-shadow:6px 6px 0 var(--ink)}
+.liner-body{padding:26px 26px 30px;display:grid;gap:22px;min-width:0}
+.liner-body .x{position:absolute;top:10px;right:10px;width:42px;height:42px;border-radius:50%;border:2.5px solid var(--ink);background:var(--paper);font-size:20px;cursor:pointer;z-index:2}
+.lh .no{font-family:var(--f-dot);font-size:13px;letter-spacing:.16em;color:var(--c)}
+.lh h3{font-family:var(--f-ko);font-size:clamp(34px,5vw,54px);line-height:1;margin:6px 0 8px}
+.lh .jp{font-family:var(--f-disp);font-size:14px;letter-spacing:.14em;background:var(--ink);color:var(--paper);display:inline-block;padding:4px 10px;transform:skewX(-10deg)}
+.lbl{font-family:var(--f-dot);font-size:12px;letter-spacing:.22em;color:var(--ink-2);margin:0 0 10px;display:flex;justify-content:space-between}
+.parts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;list-style:none;margin:0;padding:0}
+.part{border:2px solid var(--ink);border-radius:14px;padding:10px 12px;background:#fff;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:center}
+.part svg{width:30px;height:30px;stroke:var(--c);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.part b{display:block;font-family:var(--f-dot);font-size:10px;letter-spacing:.18em;font-weight:400;color:var(--ink-2)}
+.part .ns{font-weight:700;font-size:14px;line-height:1.4;display:flex;flex-wrap:wrap;column-gap:5px;word-break:keep-all}
+.part .ns i{font-style:normal;white-space:nowrap}
+.part .ns em{font-style:normal;color:var(--ink-2)}
+.tracks{list-style:none;margin:0;padding:0;border-top:2.5px solid var(--ink)}
+.tracks li{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:9px 2px;border-bottom:1.5px dashed color-mix(in oklab,var(--ink) 35%,transparent);font-variant-numeric:tabular-nums}
+.tracks .n{font-family:var(--f-dot);color:var(--c);font-size:17px}
+.tracks .t{font-weight:700;min-width:0}
+.tracks .t small{font-weight:400;color:var(--ink-2);margin-left:6px;font-size:13px}
+.tracks .d{font-family:var(--f-dot);color:var(--ink-2)}
+@media (max-width:760px){.liner-in{grid-template-columns:minmax(0,1fr)}.liner-art{min-height:240px;border-right:0;border-bottom:3px solid var(--ink)}}
+
+.sns{display:flex;flex-wrap:wrap;gap:8px}
+.sns a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:14px;border:2.5px solid var(--ink);border-radius:999px;padding:7px 14px 7px 10px;background:#fff;box-shadow:3px 3px 0 var(--c);transition:transform .12s}
+.sns a:hover{transform:translate(-2px,-2px)}
+.sns svg{width:20px;height:20px}
+
+/* ---------- TIMETABLE ---------- */
+.tt{border:3px solid var(--ink);background:#fff;box-shadow:8px 8px 0 var(--ink)}
+.tt-axis,.tt-row{display:grid;grid-template-columns:210px minmax(0,1fr);align-items:center}
+.tt-axis{border-bottom:2.5px solid var(--ink);font-family:var(--f-dot);font-size:12px;color:var(--ink-2)}
+.tt-axis .ticks{position:relative;height:30px}
+.tt-axis .ticks span{position:absolute;top:8px;transform:translateX(-50%)}
+.tt-row{border-bottom:1.5px dashed color-mix(in oklab,var(--ink) 30%,transparent);min-height:58px}
+.tt-row:last-child{border-bottom:0}
+.tt-row .lab{padding:10px 14px;border-right:2.5px solid var(--ink);height:100%;display:flex;flex-direction:column;justify-content:center}
+.tt-row .lab time{font-family:var(--f-dot);font-size:15px}
+.tt-row .lab b{font-family:var(--f-ko);font-weight:400;font-size:17px;line-height:1.15;white-space:nowrap}
+.tt-row .track{position:relative;height:100%;min-height:58px;background-image:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),color-mix(in oklab,var(--ink) 10%,transparent) calc(12.5% - 1px) 12.5%)}
+.tt-row .blk{position:absolute;top:12px;bottom:12px;border:2.5px solid var(--ink);border-radius:8px;background:var(--c);box-shadow:3px 3px 0 var(--ink);display:flex;align-items:center;padding:0 10px;
+  font-family:var(--f-disp);font-size:13px;color:var(--paper);white-space:nowrap;overflow:hidden}
+.tt-row.band .lab b{font-size:19px}
+.tt-note{margin-top:14px;color:var(--ink-2);font-size:13px}
+@media (max-width:640px){
+  .tt-axis,.tt-row{grid-template-columns:132px minmax(0,1fr)}
+  .tt-row .lab{padding:10px 10px}.tt-row .lab b{font-size:13px;letter-spacing:-.02em}.tt-row.band .lab b{font-size:13.5px}
+  .tt-axis .ticks span:nth-child(even){display:none}
+  .tt-row .blk{font-size:0;padding:0}
+}
+
+/* ---------- TICKET ---------- */
+.tk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px;align-items:start}
+.stub{position:relative;background:var(--red);color:var(--paper);border:3px solid var(--ink);box-shadow:10px 10px 0 var(--ink);display:grid;grid-template-columns:minmax(0,1fr) 120px;overflow:hidden}
+.stub::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.22) 1.4px,transparent 1.6px);background-size:12px 12px}
+.stub .main{position:relative;padding:26px 24px;display:grid;gap:10px}
+.stub .main .dot{font-size:13px;letter-spacing:.2em}
+.stub .price{font-family:var(--f-disp);font-size:clamp(54px,8vw,92px);line-height:.9;color:var(--yellow);-webkit-text-stroke:2.5px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--ink)}
+.stub .price small{font-size:.32em;color:var(--paper);-webkit-text-stroke:0;text-shadow:none;margin-left:6px}
+.stub .info{font-family:var(--f-ko);font-size:20px;line-height:1.3}
+.stub .side{position:relative;border-left:3px dashed var(--ink);background:var(--yellow);color:var(--ink);display:grid;place-items:center;writing-mode:vertical-rl;font-family:var(--f-disp);font-size:20px;letter-spacing:.2em}
+.stub .side::before,.stub .side::after{content:"";position:absolute;left:-15px;width:26px;height:26px;border-radius:50%;background:var(--paper);border:3px solid var(--ink)}
+.stub .side::before{top:-16px}.stub .side::after{bottom:-16px}
+.steps{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:12px}
+.steps li{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:center;font-weight:600}
+.steps li b{width:42px;height:42px;border-radius:50%;border:2.5px solid var(--ink);display:grid;place-items:center;font-family:var(--f-disp);background:var(--yellow)}
+.steps li:nth-child(2) b{background:var(--t2);color:var(--paper)}
+.steps li:nth-child(3) b{background:var(--t4);color:var(--paper)}
+.form{border:3px solid var(--ink);background:#fff;padding:24px;box-shadow:8px 8px 0 var(--blue);display:grid;gap:16px}
+.form .row{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:12px}
+.qty{display:flex;align-items:center;border:2.5px solid var(--ink);border-radius:12px;overflow:hidden;background:#fff}
+.qty button{width:40px;height:46px;border:0;background:var(--paper-2);font-size:20px;cursor:pointer;color:var(--ink)}
+.qty input{border:0!important;text-align:center;padding:0!important;box-shadow:none!important;min-width:0;border-radius:0!important}
+.sum{display:flex;justify-content:space-between;align-items:baseline;border-top:2.5px solid var(--ink);padding-top:14px}
+.sum b{font-family:var(--f-disp);font-size:30px}
+.acct{border:2.5px solid var(--ink);border-radius:14px;padding:14px 16px;background:var(--yellow);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.acct .num{font-family:var(--f-dot);font-size:20px;letter-spacing:.04em;user-select:all}
+.acct .who{font-size:13px}
+.acct button{margin-left:auto;padding:8px 14px;font-size:13px;box-shadow:3px 3px 0 var(--ink)}
+.agree{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.done{border:3px solid var(--ink);background:#fff;padding:26px;box-shadow:8px 8px 0 var(--ok);display:grid;gap:14px}
+.done h3{font-family:var(--f-ko);font-size:30px;margin:0}
+.done .big{font-family:var(--f-disp);font-size:40px;color:var(--red)}
+.err{color:var(--bad);font-weight:600;font-size:14px;min-height:1em}
+@media (max-width:860px){.tk{grid-template-columns:minmax(0,1fr)}}
+
+.find{margin-top:18px;border:2.5px dashed var(--ink);border-radius:16px;padding:14px 16px;background:color-mix(in oklab,#fff 60%,transparent)}
+.find summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.find summary::-webkit-details-marker{display:none}
+.find summary::after{content:"＋";font-size:18px}
+.find[open] summary::after{content:"－"}
+.find form{display:grid;gap:12px;margin-top:14px}
+.find .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.find .res{display:grid;gap:8px}
+.find .res a{display:flex;justify-content:space-between;gap:10px;text-decoration:none;border:2.5px solid var(--ink);border-radius:12px;padding:10px 14px;background:#fff;font-weight:700}
+@media (max-width:520px){.find .row2{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- ACCESS ---------- */
+.ac{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:stretch}
+.map{border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);min-height:360px;background:var(--paper-2);position:relative}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.85) contrast(1.05)}
+.where{display:grid;gap:16px;align-content:start}
+.where .pl{font-family:var(--f-ko);font-size:clamp(34px,5vw,52px);line-height:1}
+.where .pl small{display:block;font-family:var(--f-disp);font-size:14px;letter-spacing:.2em;color:var(--red);margin-top:8px}
+.addr{border:2.5px solid var(--ink);border-radius:14px;background:#fff;padding:14px 16px;display:grid;gap:4px}
+.addr b{font-size:17px}
+.addr span{font-size:13px;color:var(--ink-2)}
+.maplinks{display:flex;flex-wrap:wrap;gap:10px}
+.maplinks .btn{padding:10px 16px;font-size:14px}
+.facts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.facts li{display:flex;gap:10px;align-items:baseline;font-size:14px}
+.facts li::before{content:"★";color:var(--red)}
+@media (max-width:860px){.ac{grid-template-columns:minmax(0,1fr)}.map{min-height:300px}}
+
+/* ---------- FOOTER ---------- */
+footer{margin-top:80px;background:var(--ink);color:var(--paper);overflow:hidden}
+footer .wrap{padding-block:48px calc(40px + env(safe-area-inset-bottom,0px));display:grid;gap:8px}
+footer .after{font-family:var(--f-disp);font-size:clamp(40px,9vw,110px);line-height:.9;color:var(--yellow)}
+footer p{margin:0;font-family:var(--f-dot);letter-spacing:.1em;color:color-mix(in oklab,var(--paper) 70%,transparent)}
+
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr);padding-block:30px 130px}
+  .disc-wrap{max-width:380px;order:-1;margin-top:10px}
+  .vert{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">ORβIT<b>★</b>400</a>
+    <nav aria-label="섹션">
+      <a href="#lineup">LINE UP</a><a href="#time">TIME</a><a href="#ticket">TICKET</a><a href="#access">ACCESS</a>
+    </nav>
+    <a class="btn ghost" id="myTix" hidden href="#">내 티켓</a>
+    <a class="btn" href="#ticket">예매하기</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="vert" aria-hidden="true">宇宙ステーション・二〇二六年十二月二十日・ライブ</div>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="chip y">2026.12.20 SUN</span><span class="chip ko">홍대 우주정거장</span></div>
+      <h1 class="mega">ORβIT<span class="live">400<i>!</i></span></h1>
+      <div class="sub">
+        <span><small>OPEN</small>16:00</span>
+        <span><small>START</small>17:00</span>
+        <span><small>LINE UP</small>4 BANDS</span>
+      </div>
+      <div class="cta">
+        <a class="btn" href="#ticket">티켓 예매 ₩7,000</a>
+        <a class="btn ghost" href="#lineup">라인업 보기</a>
+      </div>
+    </div>
+    <div class="disc-wrap" aria-hidden="true">
+      <div class="disc" id="disc"></div>
+      <div class="sticker bands"><span>4 BANDS<br>31 SONGS</span></div>
+      <div class="sticker price"><span>₩7,000<small>ADMISSION</small></span></div>
+    </div>
+  </div>
+  <div class="tapes" aria-hidden="true">
+    <div class="tape a"><span id="tapeA"></span></div>
+    <div class="tape b"><span id="tapeB"></span></div>
+  </div>
+</section>
+
+<section class="sec" id="lineup">
+  <div class="wrap">
+    <div class="sh"><h2>LINE<br>UP</h2><span class="jp">出演</span><p>재킷을 누르면 멤버와 세트리스트가 나와요</p></div>
+    <div class="lineup" id="lineupGrid"></div>
+  </div>
+</section>
+
+<dialog class="liner" id="liner" aria-labelledby="linerTitle"></dialog>
+
+<section class="sec" id="time">
+  <div class="wrap">
+    <div class="sh"><h2>TIME<br>TABLE</h2><span class="jp">時間割</span></div>
+    <div class="tt" id="tt"></div>
+    <p class="tt-note">밴드별 시간은 곡 길이에 멘트·세팅 전환을 더한 예상 시간이에요.</p>
+  </div>
+</section>
+
+<section class="sec" id="ticket">
+  <div class="wrap">
+    <div class="sh"><h2>TICKET</h2><span class="jp">入場券</span></div>
+    <div class="tk">
+      <div>
+        <div class="stub">
+          <div class="main">
+            <span class="dot">ADMISSION · ORβIT 400</span>
+            <div class="price">7,000<small>원 / 1인</small></div>
+            <div class="info">2026.12.20 SUN<br>OPEN 16:00 · START 17:00<br>홍대 우주정거장 · 스탠딩</div>
+          </div>
+          <div class="side">入場券 No.400</div>
+        </div>
+        <ol class="steps">
+          <li><b>1</b>신청서 작성 후 계좌로 입금</li>
+          <li><b>2</b>입금 확인되면 내 티켓에 QR 발급</li>
+          <li><b>3</b>공연 당일 입구에서 QR 보여주기</li>
+        </ol>
+      </div>
+      <div id="tkBox">
+        <form class="form" id="orderForm" novalidate>
+          <div class="field"><label for="f-name">이름</label><input id="f-name" name="name" autocomplete="name" maxlength="20" required placeholder="홍길동"></div>
+          <div class="field"><label for="f-phone">연락처</label><input id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="13" required placeholder="010-0000-0000"></div>
+          <div class="row">
+            <div class="field"><label for="f-dep">입금자명</label><input id="f-dep" name="depositor" maxlength="20" required placeholder="이름과 같으면 비워두세요"></div>
+            <div class="field"><label for="f-qty">인원</label>
+              <div class="qty"><button type="button" data-d="-1" aria-label="인원 빼기">−</button><input id="f-qty" name="qty" type="number" min="1" max="10" value="1" inputmode="numeric"><button type="button" data-d="1" aria-label="인원 더하기">+</button></div>
+            </div>
+          </div>
+          <div class="acct">
+            <div><div class="who">카카오뱅크 · 예금주 김예지</div><div class="num" id="acctNum">3333-04-5032780</div></div>
+            <button type="button" class="btn" id="copyAcct">계좌 복사</button>
+          </div>
+          <div class="sum"><span>입금하실 금액</span><b id="sum">7,000원</b></div>
+          <p class="agree">입력한 이름과 연락처는 입금 확인과 입장 확인에만 쓰고 공연이 끝나면 지워요.</p>
+          <div class="err" id="err" role="alert"></div>
+          <button class="btn" type="submit" id="submitBtn">예매 신청하기</button>
+        </form>
+        <details class="find" id="findBox">
+          <summary>이미 예매했어요 · 내 티켓 찾기</summary>
+          <form id="findForm" novalidate>
+            <div class="row2">
+              <div class="field"><label for="fd-name">이름</label><input id="fd-name" autocomplete="name" maxlength="20" required></div>
+              <div class="field"><label for="fd-phone">연락처</label><input id="fd-phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="13" required placeholder="010-0000-0000"></div>
+            </div>
+            <div class="err" id="fdErr" role="alert"></div>
+            <button class="btn ghost" type="submit">내 티켓 찾기</button>
+            <div class="res" id="fdRes"></div>
+          </form>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="access">
+  <div class="wrap">
+    <div class="sh"><h2>ACCESS</h2><span class="jp">会場</span></div>
+    <div class="ac">
+      <div class="map">
+        <iframe title="홍대 우주정거장 지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%EC%99%80%EC%9A%B0%EC%82%B0%EB%A1%9C29%EA%B8%B8%2016&z=17&hl=ko&output=embed"></iframe>
+      </div>
+      <div class="where">
+        <div class="pl">홍대 우주정거장<small>HONGDAE SPACE STATION</small></div>
+        <div class="addr"><b>서울 마포구 와우산로29길 16, 지하 1층</b><span>지번 서교동 328-13 · 홍대입구역에서 걸어서 7~8분</span></div>
+        <div class="maplinks">
+          <a class="btn" href="https://map.naver.com/p/search/%ED%99%8D%EB%8C%80%EC%9A%B0%EC%A3%BC%EC%A0%95%EA%B1%B0%EC%9E%A5" target="_blank" rel="noopener">네이버 지도</a>
+          <a class="btn ghost" href="https://map.kakao.com/?q=%ED%99%8D%EB%8C%80%EC%9A%B0%EC%A3%BC%EC%A0%95%EA%B1%B0%EC%9E%A5" target="_blank" rel="noopener">카카오맵</a>
+          <button class="btn ghost" type="button" id="copyAddr">주소 복사</button>
+        </div>
+        <ul class="facts">
+          <li>건물 주차 불가, 근처 공영·유료 주차장을 이용해 주세요</li>
+          <li>스탠딩 공연이에요 (약 100명)</li>
+          <li>공연 중에도 음료·주류를 살 수 있어요</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>THANK YOU FOR COMING ★ またね</p>
+    <div class="after">SEE YOU<br>12.20</div>
+    <p>홍대 우주정거장 · 2026.12.20 SUN 17:00</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script type="module">
+import { EVENT, TEAMS, PART, ICON, esc, won } from '/assets/data.js';
+import { mountArt } from '/assets/art.js';
+
+const $ = s => document.querySelector(s);
+const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); };
+async function copy(text, okMsg) {
+  try { await navigator.clipboard.writeText(text); toast(okMsg); }
+  catch { toast(text); }
+}
+
+// tapes
+const tapeA = ('ORβIT 400 ★ ライブ ★ 2026.12.20 SUN ★ 홍대 우주정거장 ★ ').repeat(6);
+const tapeB = (TEAMS.map(t => `${t.jp} ★ ${t.ko}`).join(' ★ ') + ' ★ ').repeat(3);
+$('#tapeA').textContent = tapeA; $('#tapeB').textContent = tapeB;
+
+// disc kanji
+$('#disc').innerHTML = TEAMS.map((t, i) => {
+  const a = (i * 90 + 45) * Math.PI / 180, r = 32;
+  return `<div class="kj"><span style="left:${(Math.sin(a) * r).toFixed(1)}cqw;top:${(-Math.cos(a) * r).toFixed(1)}cqw">${t.k}</span></div>`;
+}).join('');
+
+// lineup
+$('#lineupGrid').innerHTML = TEAMS.map((t, i) => `
+  <button class="jacket" style="--c:${t.color}" data-i="${i}" aria-label="${esc(t.ko)} 멤버와 세트리스트 보기">
+    <canvas data-art="${t.art}" aria-hidden="true"></canvas>
+    <span class="k" aria-hidden="true">${t.k}</span>
+    <span class="kata" aria-hidden="true">${esc(t.jp)}</span>
+    <span class="open">SETLIST ▸</span>
+    <span class="bar"><span class="no">TEAM 0${i + 1}</span><span class="nm">${esc(t.ko)}</span><span class="tm">${t.start}</span></span>
+  </button>`).join('');
+document.querySelectorAll('.jacket canvas').forEach(c => mountArt(c, c.dataset.art));
+
+let no0 = [];
+{ let n = 0; TEAMS.forEach(t => { no0.push(n); n += t.songs.length; }); }
+const IG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>';
+const YT = '<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4" fill="#ff2d2d"/><path d="M10 9l5 3-5 3z" fill="#fff"/></svg>';
+const liner = $('#liner');
+function openLiner(i) {
+  const t = TEAMS[i];
+  liner.style.setProperty('--c', t.color);
+  liner.innerHTML = `
+    <div class="liner-in">
+      <div class="liner-art"><canvas data-art="${t.art}" aria-hidden="true"></canvas><span class="k" aria-hidden="true">${t.k}</span></div>
+      <div class="liner-body" style="position:relative">
+        <button class="x" type="button" aria-label="닫기">✕</button>
+        <div class="lh"><div class="no">TEAM 0${i + 1} · ${t.start}–${t.end}</div><h3 id="linerTitle">${esc(t.ko)}</h3><span class="jp">${esc(t.jp)}</span></div>
+        ${t.links ? `<div class="sns">${t.links.instagram ? `<a href="${t.links.instagram}" target="_blank" rel="noopener">${IG}Instagram</a>` : ''}${t.links.youtube ? `<a href="${t.links.youtube}" target="_blank" rel="noopener">${YT}YouTube</a>` : ''}</div>` : ''}
+        <div><p class="lbl"><span>MEMBERS</span></p><ul class="parts">${Object.entries(t.parts).map(([p, ns]) =>
+          `<li class="part">${ICON[p]}<div><b>${PART[p]}</b><span class="ns">${ns.map(n => `<i>${esc(n)}</i>`).join('<em>·</em>')}</span></div></li>`).join('')}</ul></div>
+        <div><p class="lbl"><span>TRACK LIST</span><span>${t.songs.length} SONGS · ${t.total}</span></p><ol class="tracks">${t.songs.map(([s, a, d], j) =>
+          `<li><span class="n">${String(no0[i] + j + 1).padStart(2, '0')}</span><span class="t">${esc(s)}${a ? `<small>${esc(a)}</small>` : ''}</span><span class="d">${d}</span></li>`).join('')}</ol></div>
+      </div>
+    </div>`;
+  liner.querySelector('.x').onclick = () => liner.close();
+  liner.showModal();
+  mountArt(liner.querySelector('canvas'), t.art);
+}
+$('#lineupGrid').addEventListener('click', e => { const j = e.target.closest('.jacket'); if (j) openLiner(+j.dataset.i); });
+liner.addEventListener('click', e => { if (e.target === liner) liner.close(); });
+
+// timetable 16:00–20:00
+const toMin = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
+const T0 = toMin('16:00'), T1 = toMin('20:00'), pct = m => ((m - T0) / (T1 - T0) * 100).toFixed(2);
+const rows = [
+  { s: '16:00', e: '17:00', ko: '관객 입장', c: 'var(--yellow)', label: 'OPEN', dark: true },
+  ...TEAMS.map(t => ({ s: t.start, e: t.end, ko: t.ko, c: t.color, label: t.k, band: true })),
+];
+$('#tt').innerHTML = `<div class="tt-axis"><span></span><div class="ticks">${[960,990,1020,1050,1080,1110,1140,1170].map(m => `<span style="left:${pct(m)}%">${m / 60 | 0}:${m % 60 ? '30' : '00'}</span>`).join('')}</div></div>` +
+  rows.map(r => `<div class="tt-row${r.band ? ' band' : ''}"><div class="lab"><time>${r.s}–${r.e}</time><b>${esc(r.ko)}</b></div>
+    <div class="track"><div class="blk" style="--c:${r.c};left:${pct(toMin(r.s))}%;width:${((toMin(r.e) - toMin(r.s)) / (T1 - T0) * 100).toFixed(2)}%;${r.dark ? 'color:var(--ink)' : ''}">${esc(r.label)}</div></div></div>`).join('');
+
+// ticket form
+const KEY = 'live1220.tickets';
+const loadMine = () => { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; } };
+const saveMine = arr => { try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch {} };
+function refreshMine() {
+  const mine = loadMine();
+  const a = $('#myTix');
+  if (mine.length) { a.hidden = false; a.href = '/t/' + mine[mine.length - 1].token; a.textContent = mine.length > 1 ? `내 티켓 ${mine.length}` : '내 티켓'; }
+}
+refreshMine();
+
+const qty = $('#f-qty');
+const clampQty = () => { qty.value = Math.min(10, Math.max(1, parseInt(qty.value || '1', 10) || 1)); $('#sum').textContent = won(qty.value * EVENT.price); };
+document.querySelectorAll('.qty button').forEach(b => b.onclick = () => { qty.value = +qty.value + +b.dataset.d; clampQty(); });
+qty.addEventListener('input', clampQty);
+$('#f-phone').addEventListener('input', e => {
+  const d = e.target.value.replace(/\D/g, '').slice(0, 11);
+  e.target.value = d.length > 7 ? `${d.slice(0, 3)}-${d.slice(3, d.length - 4)}-${d.slice(-4)}` : d.length > 3 ? `${d.slice(0, 3)}-${d.slice(3)}` : d;
+});
+const fmtPhone = e => { const d = e.target.value.replace(/\D/g, '').slice(0, 11); e.target.value = d.length > 7 ? `${d.slice(0, 3)}-${d.slice(3, d.length - 4)}-${d.slice(-4)}` : d.length > 3 ? `${d.slice(0, 3)}-${d.slice(3)}` : d; };
+$('#fd-phone').addEventListener('input', fmtPhone);
+const ST = { pending: '입금 확인 중', paid: 'QR 발급됨', checked: '입장 완료', canceled: '취소됨' };
+$('#findForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = $('#fdErr'), res = $('#fdRes'); err.textContent = ''; res.innerHTML = '';
+  try {
+    const r = await fetch('/api/find', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ name: $('#fd-name').value, phone: $('#fd-phone').value }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || '조회하지 못했어요.');
+    const mine = loadMine();
+    for (const t of j.tickets) if (!mine.some(m => m.token === t.token)) mine.push({ token: t.token, name: t.name, qty: t.qty });
+    saveMine(mine); refreshMine();
+    if (j.tickets.length === 1) { location.href = '/t/' + j.tickets[0].token; return; }
+    res.innerHTML = j.tickets.map(t => `<a href="/t/${esc(t.token)}"><span>${esc(t.name)} · ${t.qty}명</span><span>${ST[t.status] || ''} ›</span></a>`).join('');
+  } catch (ex) { err.textContent = ex.message; }
+});
+$('#copyAcct').onclick = () => copy(`카카오뱅크 ${EVENT.bank.number} ${EVENT.bank.holder}`, '계좌번호를 복사했어요');
+$('#copyAddr').onclick = () => copy(EVENT.address, '주소를 복사했어요');
+
+$('#orderForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  clampQty();
+  const f = e.target, err = $('#err');
+  const body = { name: f.name.value.trim(), phone: f.phone.value.replace(/\D/g, ''), qty: +f.qty.value, depositor: f.depositor.value.trim() || f.name.value.trim() };
+  if (!body.name) return err.textContent = '이름을 적어주세요.';
+  if (!/^01\d{8,9}$/.test(body.phone)) return err.textContent = '연락처를 010으로 시작하는 숫자로 적어주세요.';
+  err.textContent = '';
+  const btn = $('#submitBtn'); btn.disabled = true; btn.textContent = '신청 중…';
+  try {
+    const r = await fetch('/api/order', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || '신청이 안 됐어요. 잠시 뒤 다시 해주세요.');
+    const mine = loadMine(); mine.push({ token: j.token, name: body.name, qty: body.qty }); saveMine(mine); refreshMine();
+    $('#tkBox').innerHTML = `
+      <div class="done">
+        <h3>신청 완료! 이제 입금만 하면 돼요</h3>
+        <div class="big">${won(j.amount)}</div>
+        <div class="acct"><div><div class="who">카카오뱅크 · 예금주 김예지 · 입금자명 <b>${esc(body.depositor)}</b></div><div class="num">${EVENT.bank.number}</div></div>
+          <button type="button" class="btn" id="copyAcct2">계좌 복사</button></div>
+        <p>입금이 확인되면 아래 <b>내 티켓</b> 페이지에 입장 QR이 생겨요. 링크는 이 브라우저에 저장되지만, 혹시 모르니 카톡 나에게 보내기로 꼭 저장해 두세요.</p>
+        <a class="btn" href="/t/${j.token}">내 티켓 보기</a>
+      </div>`;
+    $('#copyAcct2').onclick = () => copy(`카카오뱅크 ${EVENT.bank.number} ${EVENT.bank.holder}`, '계좌번호를 복사했어요');
+  } catch (ex) {
+    err.textContent = ex.message; btn.disabled = false; btn.textContent = '예매 신청하기';
+  }
+});
+</script>
+</body>
+</html>
