@@ -214,7 +214,7 @@ mountArt(canvasElement, 'planet');   // flame | burst | planet | dawn
 
 - 키보드 포커스: 파랑 3px 외곽선 (`:focus-visible`)
 - 장식용 일본어·한자에는 `aria-hidden="true"`
-- 모바일에는 hover가 없으니 "자세히 보기" 표시를 항상 보이게 합니다 (`@media (hover: none)`)
+- 모바일에는 hover가 없으니 "SETLIST ▸" 표시를 항상 보이게 합니다 (`@media (hover: none)`)
 - 노랑·연한 바탕 위 작은 글자는 `--ink`만 씁니다. `--ink-2`는 흰색·`--paper` 바탕에서만 씁니다.
 
 ---
