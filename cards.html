@@ -181,7 +181,7 @@ TEAMS.forEach((t, i) => {
 
 const rows = [{ s: '16:00', k: '', ko: '관객 입장', sub: 'OPEN', c: 'var(--yellow)', fg: 'var(--ink)' },
   ...TEAMS.map(t => ({ s: t.start, k: t.k, ko: t.ko, sub: `${t.songs.length} SONGS`, c: t.color })),
-  { s: '19:30', k: '', ko: '공연 끝 · 다음에 또 만나요', sub: 'END', c: 'var(--ink)' }];
+  { s: '19:45', k: '', ko: '공연 끝 · 다음에 또 만나요', sub: 'END', c: 'var(--ink)' }];
 cards.push(`<section class="card c7 dots">${pg(7)}
   <div class="hd"><h2 class="ttl">TIME<br>TABLE</h2><span class="ttl-jp">時間割</span></div>
   <div class="list">${rows.map(r => `<div class="it" style="--c:${r.c};${r.fg ? `--fg:${r.fg}` : ''}"><time>${r.s}</time><div>${r.k ? `<span class="k">${r.k}</span>` : ''}<b>${esc(r.ko)}</b><small>${r.sub}</small></div></div>`).join('')}</div>
