@@ -19,8 +19,8 @@ export const TEAMS = [
     id: 'homura', k: '炎', color: 'var(--t1)', ko: '호무라엔진바스터즈', jp: 'ホムラエンジンバスターズ', en: 'HOMURA ENGINE BUSTERS',
     art: 'flame', start: '17:00', end: '17:30',
     parts: { V: ['정시엽'], G: ['주성헌', '길민지', '사영준'], B: ['윤태웅'], K: ['정시엽', '사영준'], D: ['김보경'] },
-    songs: [['Orange', 'SPYAIR', '3:55'], ['Inferno', 'Mrs. GREEN APPLE', '3:33'], ['역광', 'Ado', '3:58'], ['Lily', 'LUCK LIFE', '4:24'], ['White Noise', 'Official髭男dism', '4:14'], ['벚꽃만월', 'SPYAIR', '3:39'], ['Chainsaw Blood', 'Vaundy', '3:21']],
-    total: '27:04',
+    songs: [['Orange', 'SPYAIR', '3:55'], ['Inferno', 'Mrs. GREEN APPLE', '3:33'], ['역광', 'Ado', '3:58'], ['Lily', 'LUCK LIFE', '4:24'], ['White Noise', 'Official髭男dism', '4:14'], ['벚꽃만월', 'SPYAIR', '3:39'], ['Chainsaw Blood', 'Vaundy', '3:21'], ['사랑감기에 실려', 'Vaundy', '4:16']],
+    total: '31:20',
   },
   {
     id: 'chomecha', k: '超', color: 'var(--t2)', ko: '쵸-멧챠스기루★', jp: 'チョーメッチャスギル★', en: 'CHO-MECCHA SUGIRU',
